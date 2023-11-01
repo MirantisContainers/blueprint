@@ -23,5 +23,5 @@ esac
 
 RELEASE_URL="https://github.com/mirantis/boundless/releases/latest/download/bctl_${opsys}_${arch}.tar.gz"
 echo "Downloading $RELEASE_URL"
-curl -sL "$RELEASE_URL" | tar xvz - -C $where
+curl -sL "$RELEASE_URL" | tar xvz -C $where
 echo "bctl installed to ${where}/bctl"
