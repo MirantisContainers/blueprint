@@ -21,7 +21,7 @@ arm64|aarch64)
     ;;
 esac
 
-RELEASE_URL="https://github.com/mirantis/boundless/releases/latest/download/bocli_${opsys}_${arch}.tar.gz"
+RELEASE_URL="https://github.com/mirantis/boundless/releases/latest/download/bctl_${opsys}_${arch}.tar.gz"
 echo "Downloading $RELEASE_URL"
 curl -sL "$RELEASE_URL" | tar xvz - -C $where
-echo "bocli installed to ${where}/bocli"
+echo "bctl installed to ${where}/bctl"
