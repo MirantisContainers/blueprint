@@ -2,10 +2,10 @@
 
 <!-- TOC -->
 * [Quick Start](#quick-start)
-  * [Install on Kind](#install-on-kind)
-  * [Install on an existing cluster](#install-on-an-existing-cluster)
-  * [Bootstrap k0s cluster and install add-ons on Amazong VM ](#[install-on-amazon-vm](https://github.com/vivek/boundless/edit/patch-1/README.md))
-* [Boundless Operator Blueprints](#boundless-operator-blueprints)
+  * [Bootstrap kind(k3s) cluster and install add-ons](#Bootstrap k0s cluster and install add-ons on Amazong VM)
+  * [Deploy add-on components on an existing kubernetes cluster](#deploy-add-on-components-on-an-existing-kubernetes-cluster)
+  * [Bootstrap k0s cluster and install add-ons on Amazong VM ](#bootstrap-kindk3s-cluster-and-install-add-ons)
+* [Boundless Blueprints](#boundless-blueprints)
   * [Core Components](#core-components)
   * [Add-ons](#add-ons)
 * [Sample Blueprints](#sample-blueprints)
@@ -188,7 +188,7 @@ Refer to the example TF scripts: https://github.com/Mirantis/boundless-cli/tree/
    terraform destroy --auto-approve
    ```
 
-## Boundless Operator Blueprints
+## Boundless Blueprints
 
 ### Core Components
 
