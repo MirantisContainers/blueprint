@@ -2,8 +2,8 @@
 
 <!-- TOC -->
 * [Quick Start](#quick-start)
-  * [Bootstrap kind(k3s) cluster and install add-ons](#Bootstrap k0s cluster and install add-ons on Amazong VM)
-  * [Deploy add-on components on an existing kubernetes cluster](#deploy-add-on-components-on-an-existing-kubernetes-cluster)
+  * [Bootstrap kind(k3s) cluster and install add-ons](#bootstrap-kindk3s-cluster-and-install-add-ons)
+  * [Install add-on components on an existing kubernetes cluster](#install-add-on-components-on-an-existing-kubernetes-cluster)
   * [Bootstrap k0s cluster and install add-ons on Amazong VM ](#bootstrap-kindk3s-cluster-and-install-add-ons)
 * [Boundless Blueprints](#boundless-blueprints)
   * [Core Components](#core-components)
@@ -62,7 +62,7 @@ Update your cluster with the updated blueprint:
    ```shell
    bctl reset --config blueprint.yaml
    ```
-### Deploy add-on components on an existing kubernetes cluster
+### Install add-on components on an existing kubernetes cluster
 
 1. Install Boundless Operator
    ```shell
