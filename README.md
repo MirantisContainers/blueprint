@@ -4,7 +4,7 @@
 * [Quick Start](#quick-start)
   * [Install on Kind](#install-on-kind)
   * [Install on an existing cluster](#install-on-an-existing-cluster)
-  * [Install on Amazon VM](#install-on-amazon-vm)
+  * [Bootstrap k0s cluster and install add-ons on Amazong VM ](#[install-on-amazon-vm](https://github.com/vivek/boundless/edit/patch-1/README.md))
 * [Boundless Operator Blueprints](#boundless-operator-blueprints)
   * [Core Components](#core-components)
   * [Add-ons](#add-ons)
@@ -20,7 +20,7 @@
    ```
    This will install `bctl` to `/usr/local/bin`. See [here](https://github.com/Mirantis/boundless/releases) for all releases.
 
-### Install Lens AppIQ on a bootstrapped Kind cluster
+### Bootstrap kind(k3s) cluster and install add-ons
 
 1. Install `Kind`: https://kind.sigs.k8s.io/docs/user/quick-start/
 2. Generate a sample blueprint file:
@@ -62,7 +62,7 @@ Update your cluster with the updated blueprint:
    ```shell
    bctl reset --config blueprint.yaml
    ```
-### Install set of Kubernetes components on an existing cluster
+### Deploy add-on components on an existing kubernetes cluster
 
 1. Install Boundless Operator
    ```shell
@@ -107,7 +107,7 @@ Update your cluster with the updated blueprint:
    nginx   1/1     1            1           35s
    ```
    
-### Deploy blueprint to bootstrap k0s cluster and install add on components on an Amazon VM
+### Bootstrap k0s cluster and install add-ons on Amazong VM
 
 #### Prerequisites
 Ensure that following are installed on the system:
