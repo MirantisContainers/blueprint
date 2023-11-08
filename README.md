@@ -2,9 +2,9 @@
 
 <!-- TOC -->
 * [Quick Start](#quick-start)
-  * [Bootstrap kind(k3s) cluster and install add-ons](#bootstrap-kindk3s-cluster-and-install-add-ons)
+  * [Bootstrap kind cluster and install add-ons](#bootstrap-kind-cluster-and-install-add-ons)
   * [Install add-on components on an existing kubernetes cluster](#install-add-on-components-on-an-existing-kubernetes-cluster)
-  * [Bootstrap k0s cluster and install add-ons on Amazong VM ](#bootstrap-kindk3s-cluster-and-install-add-ons)
+  * [Bootstrap k0s cluster and install add-ons on Amazong VM](#bootstrap-k0s-cluster-and-install-add-ons-on-amazong-vm)
 * [Boundless Blueprints](#boundless-blueprints)
   * [Core Components](#core-components)
   * [Add-ons](#add-ons)
@@ -20,7 +20,7 @@
    ```
    This will install `bctl` to `/usr/local/bin`. See [here](https://github.com/Mirantis/boundless/releases) for all releases.
 
-### Bootstrap kind(k3s) cluster and install add-ons
+### Bootstrap kind cluster and install add-ons
 
 1. Install `Kind`: https://kind.sigs.k8s.io/docs/user/quick-start/
 2. Generate a sample blueprint file:
@@ -39,29 +39,27 @@
    ```
    Note: `bctl` will create a `kubeconfig` file in the current directory.
    Use this file to connect to the cluster.
-5. Update the cluster by modifying `blueprint.yaml`:
-
-Add wordpress addon to the `blueprint.yaml`:
-
-```YAML
- - name: wordpress
-      kind: HelmAddon
-      enabled: true
-      namespace: wordpress
-      chart:
-        name: wordpress
-        repo: https://charts.bitnami.com/bitnami
-        version: 18.0.11
-```
-Update your cluster with the updated blueprint:
+5. Add wordpress addon to the `blueprint.yaml`:
+   ```YAML
+   - name: wordpress
+     kind: HelmAddon
+     enabled: true
+     namespace: wordpress
+     chart:
+       name: wordpress
+       repo: https://charts.bitnami.com/bitnami
+       version: 18.0.11
+   ```
+   Update your cluster with the updated blueprint:
 
    ```shell
    bctl update --config blueprint.yaml
    ```
-7. Delete the cluster:
+6. Delete the cluster:
    ```shell
    bctl reset --config blueprint.yaml
    ```
+   
 ### Install add-on components on an existing kubernetes cluster
 
 1. Install Boundless Operator
@@ -140,7 +138,7 @@ Refer to the example TF scripts: https://github.com/Mirantis/boundless-cli/tree/
    ```
    This will create a blueprints file `blueprint.yaml` with k0s specific kubernetes definition and addons that get installed in specific namespace. See a [sample here](#sample-blueprint-for-k0s-cluster)
    
-3. Now, edit the `blueprint.yaml` file to set the `spec.kubernetes.infra.hosts` from the output of `terraform output --raw bop_cluster`.
+2. Now, edit the `blueprint.yaml` file to set the `spec.kubernetes.infra.hosts` from the output of `terraform output --raw bop_cluster`.
 
    The `spec.kubernetes.infra.hosts` section should look similar to:
    ```yaml
@@ -163,26 +161,26 @@ Refer to the example TF scripts: https://github.com/Mirantis/boundless-cli/tree/
              user: ubuntu
            role: worker
    ```
-4. Create the cluster:
+3. Create the cluster:
    ```shell
    bctl apply --config blueprint.yaml
    ```
-5. Connect to the cluster:
+4. Connect to the cluster:
    ```shell
    export KUBECONFIG=./kubeconfig
    kubectl get pods
    ```
    Note: `bctl` will create a `kubeconfig` file in the current directory.
    Use this file to connect to the cluster.
-6. Update the cluster by modifying `blueprint.yaml` and then running:
+5. Update the cluster by modifying `blueprint.yaml` and then running:
    ```shell
    bctl update --config blueprint.yaml
    ```
-7. Delete the cluster:
+6. Delete the cluster:
    ```shell
    bctl reset --config blueprint.yaml
    ```
-8. Delete virtual machines:
+7. Delete virtual machines:
    ```bash
    cd example/aws-tf
    terraform destroy --auto-approve
