@@ -1,0 +1,42 @@
+apiVersion: boundless.mirantis.com/v1alpha1
+kind: Blueprint
+metadata:
+  name: k0s-cluster
+spec:
+  kubernetes:
+    provider: k0s
+    version: v1.28.3+k0s.0
+    infra:
+      hosts:
+      - ssh:
+          # Update address and keyPath
+          address: 10.0.0.1
+          keyPath: ""
+          port: 22
+          user: root
+        role: controller
+      - ssh:
+          # Update address and keyPath
+          address: 10.0.0.2
+          keyPath: ""
+          port: 22
+          user: root
+        role: worker
+  components:
+    addons:
+      - name: lens-appiq
+        kind: HelmAddon
+        enabled: true
+        namespace: shipa-system
+        chart:
+          name: shipa
+          repo: https://lensappiq-charts.storage.googleapis.com
+          version: 0.1.0
+          values: |
+            auth:
+              adminUser: "$LAIQ_USER" # Required, must be set
+              adminPassword: "$LAIQ_PASSWORD" # Required, must be set
+            shipaCluster:
+              ingress:
+                # SERVICE_TYPE can be ClusterIP or NodePort or LoadBalancer (default)
+                serviceType: ClusterIP
