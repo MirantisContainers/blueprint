@@ -9,6 +9,7 @@
   * [Core Components](#core-components)
   * [Add-ons](#add-ons)
 * [Sample Blueprints](#sample-blueprints)
+* [Lens AppIQ Blueprint](https://github.com/Mirantis/boundless/blob/main/blueprints/lensappiq/README.md#lens-appiq-blueprint)
 <!-- TOC -->
 
 ## Quick Start
