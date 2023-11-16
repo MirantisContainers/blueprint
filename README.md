@@ -1,5 +1,18 @@
 # Boundless - Tech Preview
 
+The only ZeroOps Container Platform for Modern Apps. A collaborative ‘design and run’ platform for bespoke open source solutions.
+
+## Documentation
+
+If you are a Mirantis employee, you can learn about boundless in our [wiki](https://mirantis.jira.com/wiki/spaces/BOP/overview).
+We are in the process of converting the wiki to a markdown website that will be available as part of this repo.
+
+### Editing the website
+
+It is currently possible to view and edit the documentation website locally. See [here](website/README.md) for more details.
+
+## Quick Start
+
 <!-- TOC -->
 * [Quick Start](#quick-start)
   * [Bootstrap kind cluster and install add-ons](#bootstrap-kind-cluster-and-install-add-ons)
@@ -11,8 +24,6 @@
 * [Sample Blueprints](#sample-blueprints)
 * [Lens AppIQ Blueprint](https://github.com/Mirantis/boundless/blob/main/blueprints/lensappiq/README.md#lens-appiq-blueprint)
 <!-- TOC -->
-
-## Quick Start
 
 ### Pre-requisite
 1. Install Boundless CLI binary:
@@ -60,7 +71,7 @@
    ```shell
    bctl reset --config blueprint.yaml
    ```
-   
+
 ### Install add-on components on an existing kubernetes cluster
 
 1. Install Boundless Operator
@@ -105,7 +116,7 @@
    NAME    READY   UP-TO-DATE   AVAILABLE   AGE
    nginx   1/1     1            1           35s
    ```
-   
+
 ### Bootstrap k0s cluster and install add-ons on Amazong VM
 
 #### Prerequisites
@@ -138,7 +149,7 @@ Refer to the example TF scripts: https://github.com/Mirantis/boundless-cli/tree/
    bctl init > blueprint.yaml
    ```
    This will create a blueprints file `blueprint.yaml` with k0s specific kubernetes definition and addons that get installed in specific namespace. See a [sample here](#sample-blueprint-for-k0s-cluster)
-   
+
 2. Now, edit the `blueprint.yaml` file to set the `spec.kubernetes.infra.hosts` from the output of `terraform output --raw bop_cluster`.
 
    The `spec.kubernetes.infra.hosts` section should look similar to:
