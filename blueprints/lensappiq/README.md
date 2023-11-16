@@ -231,7 +231,7 @@ lapps dashboard open
 # Delete Lens AppIQ installation
 
 ```shell
-bctl delete -c lensappiq-kind-blueprint.yaml
+bctl reset -c lensappiq-kind-blueprint.yaml
 # Team workaround
 delete helmcharts.helm.cattle.io -n shipa-system shipa 
 ```
