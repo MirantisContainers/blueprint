@@ -1,73 +1,22 @@
 ---
-title: "Lens AppIQ in k0s"
+title: "Lens AppIQ on a single node k0s"
 draft: false
 ---
 
-## Lens AppIQ on k0s Cluster
+## Lens AppIQ on a single node k0s Cluster
 
-Bootstrap a k0s cluster and install Lens AppIQ.
+Bootstrap a single node k0s cluster and install Lens AppIQ.
 
-
-#### Pre-requisite
-
-* SSH Access to either one (single node) or two VMs (one controller and one worker)
-
-For AWS there are `terraform` scripts in the `example/` directory that can be used to create machines on AWS.
-
-Refer to the example TF scripts: https://github.com/Mirantis/boundless-cli/tree/main/example/aws-tf
-
-1. `cd example/aws-tf`
-2. Create a `terraform.tfvars` file with the content similar to:
-   ```
-   cluster_name = "rs-boundless-test"
-   controller_count = 1
-   worker_count = 1
-   cluster_flavor = "m5.large"
-   ```
-3. `terraform init`
-4. `terraform apply`
-5. `terraform output --raw bop_cluster > ./blueprint.yaml`
-
-#### Install blueprint on `k0s`
-
-1. Edit the `lensappiq-k0s-blueprint.yaml` file to set the `spec.kubernetes.infra.hosts` from the output of `terraform output --raw bop_cluster`.
-
-   The `spec.kubernetes.infra.hosts` section should look similar to:
-   ```yaml
-   spec:
-     kubernetes:
-       provider: k0s
-       version: 1.27.4+k0s.0
-       infra:
-         hosts:
-         - ssh:
-             address: 52.91.89.114
-             keyPath: ./example/aws-tf/aws_private.pem
-             port: 22
-             user: ubuntu
-           role: controller
-         - ssh:
-             address: 10.0.0.2
-             keyPath: ./example/aws-tf/aws_private.pem
-             port: 22
-             user: ubuntu
-           role: worker
-   ```
-
-> For Single node configuration (such as when running for testing on Lima VM on Mac or a QEMU VM on linux), remove worker ssh entry and change `role: controller` to `role: single`
-
-2. Bootstrap k0s on provided VMs and install Lens AppIQ
-   Bootstrap a controller and worker k0s nodes and install Lens AppIQ:
-   ```shell
-   bctl apply --config lensappiq-k0s-blueprint.yaml
-   ```
-   Bootstrap a single node k0s cluster on Lima VM (Mac) and install Lens AppIQ
+#### Bootstrap a single node k0s cluster on Lima VM (Mac) and install Lens AppIQ
 
 > Start Lima VM by running `limactl start`. Refer [Lima documentation](https://github.com/lima-vm/lima#getting-started) for details
 
-   ```shell
-   lensappiq-k0s-lima-blueprint.yaml
-   ```
+Download a copy of the [example blueprint](https://raw.githubusercontent.com/Mirantis/boundless/main/blueprints/lensappiq/lensappiq-k0s-lima-blueprint.yaml) for Lens AppIQ and save it as `lensappiq-k0s-lima-blueprint.yaml`.
+
+Bootstrap a single node k0s cluster and install Lens AppIQ:
+```shell
+lensappiq-k0s-lima-blueprint.yaml
+```
 
 It should print following output on your terminal:
 
