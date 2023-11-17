@@ -1,0 +1,9 @@
+name: Release
+
+on:
+  release:
+    types: [created,prereleased,released,published]
+
+jobs:
+  docs:
+    uses: ./.github/workflows/docs.yml

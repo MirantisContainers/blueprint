@@ -1,0 +1,16 @@
+copyright: "© 2023 Mirantis"
+
+# Not using custom values ATM
+backToTop: "Scroll to top"
+changeLanguage: "Change language"
+changeTheme: "Change theme"
+copyCode: "Copy code"
+dark: "Dark"
+editThisPage: "Edit this page on GitHub →"
+lastUpdated: "Last updated on"
+light: "Light"
+noResultsFound: "No results found."
+onThisPage: "On this page"
+poweredBy: "Powered by Hextra"
+readMore: "Read more →"
+searchPlaceholder: "Search..."
