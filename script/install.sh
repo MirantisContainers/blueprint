@@ -63,7 +63,7 @@ elif command -v shasum &> /dev/null
 then
   shasum -a 256 -c ${CHECKSUM_NAME} --ignore-missing 2>/dev/null
 else
-  echo "Unable to verify checksum. Exiting without installing"
+  echo "Unable to find a shasum command installed. Exiting without installing"
   cleanup
   exit 1
 fi
