@@ -9,6 +9,13 @@ then
   VERSION=`curl -s https://api.github.com/repos/Mirantis/boundless/releases/latest | grep tag_name | tr -s ' ' | cut -d ' ' -f 3 | cut -d '"' -f 2`
   echo "VERSION not set, using latest release: ${VERSION}"
 else
+  # Make sure it is a valid version
+  curl -s https://api.github.com/repos/Mirantis/boundless/releases | grep tag_name | grep $VERSION &> /dev/null
+  if [[ $? -ne 0 ]]
+  then
+    echo "Invalid version specified: ${VERSION}"
+    exit 1
+  fi
   echo "Using version ${VERSION}"
 fi
 
@@ -47,11 +54,23 @@ cleanup() {
 BINARY_URL=${DOWNLOAD_URL}/${BINARY_NAME}
 echo "Downloading ${BINARY_URL}"
 curl -sL ${BINARY_URL} -O
+if [[ $? -ne 0 ]]
+then
+  echo "Downloading binary failed. Exiting without installing"
+  cleanup
+  exit 1
+fi
 
 # Download the checksum
 CHECKSUM_URL=${DOWNLOAD_URL}/${CHECKSUM_NAME}
 echo "Downloading ${CHECKSUM_URL}..."
 curl -sL ${CHECKSUM_URL} -O
+if [[ $? -ne 0 ]]
+then
+  echo "Downloading checksum failed. Exiting without installing"
+  cleanup
+  exit 1
+fi
 
 # Verify the checksum
 echo "Verifying checksum..."
