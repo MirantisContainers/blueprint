@@ -91,3 +91,7 @@ params:
     flexsearch:
       # index page by: content | summary | heading | title
       index: content
+
+  editURL:
+    enable: true
+    base: "https://github.com/Mirantis/boundless/edit/main/website/content"
