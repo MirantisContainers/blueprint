@@ -6,26 +6,40 @@ weight: 1
 
 ### Installing using the script
 
+#### Latest
+
 Installing the latest version of Boundless is as simple as running the following command:
 
 ```shell
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/mirantis/boundless/main/script/install.sh)"
 ```
-This install script will download the latest version and install it on your system.
+The install script will download the latest version of the boundless cli, verify it with the checksum, and install it to `/usr/local/bin/bctl`.
 
-### Installing manually
+#### Specific version
 
-Open the [latest releases page](https://github.com/Mirantis/boundless/releases/latest) and download the correct binary for your machine along with the boundless_<version>_checksums.txt file.
+If you would like to install a specific version of Boundless, you can specify the version as an environment var for the install script:
+
+```shell
+/bin/bash -c "VERSION=<desired version> $(curl -fsSL https://raw.githubusercontent.com/mirantis/boundless/main/script/install.sh)"
+```
+
+You can find the different releases on the [releases page](https://github.com/Mirantis/boundless/releases).
+
+### Manual installation
+
+Open the [releases page](https://github.com/Mirantis/boundless/releases) and download the correct binary for your machine along with the boundless_\<version\>_checksums.txt file.
 Place both in the same directory and run the following command:
 
 ```shell
-sha256sum -c boundless_<version>_checksums.txt
+sha256sum -c boundless_<version>_checksums.txt --ignore-missing 2>/dev/null
 ```
 
-Look for the line that says "OK" with your correct binary name. Install the binary with the following command:
+This will only print `OK` if at least one of the files matches the checksums in the checksum file. Otherwise, it will return an error.
+
+Next you can install the binary on your system using the following `tar` command:
 
 ```shell
-tar xvz -C /usr/local/bin/ -f bctl_<os>_<arch>.tar.gz
+tar xzf bctl_<os>_<arch>.tar.gz -C /usr/local/bin/
 ```
 
 ### Additional tools

@@ -1,6 +1,20 @@
-#!/usr/bin/env bash
-set -e
-where=/usr/local/bin
+#!/bin/bash
+INSTALL_DIR=/usr/local/bin
+REPO_URL="https://github.com/Mirantis/boundless"
+
+# Determine the version
+if [[ ! -n $VERSION ]]
+then
+  # Get information about the latest release and pull version from the tag in it
+  VERSION=`curl -s https://api.github.com/repos/Mirantis/boundless/releases/latest | grep tag_name | tr -s ' ' | cut -d ' ' -f 3 | cut -d '"' -f 2`
+  echo "VERSION not set, using latest release: ${VERSION}"
+else
+  echo "Using version ${VERSION}"
+fi
+
+DOWNLOAD_URL="${REPO_URL}/releases/download/${VERSION}"
+
+# Determine the OS type
 opsys=windows
 if [[ "$OSTYPE" == linux* ]]; then
   opsys=linux
@@ -8,7 +22,7 @@ elif [[ "$OSTYPE" == darwin* ]]; then
   opsys=darwin
 fi
 
-# supported values of 'arch': amd64, arm64
+# Determine the system architecture
 case $(uname -m) in
 x86_64)
     arch=x86_64
@@ -21,7 +35,43 @@ arm64|aarch64)
     ;;
 esac
 
-RELEASE_URL="https://github.com/mirantis/boundless/releases/latest/download/bctl_${opsys}_${arch}.tar.gz"
-echo "Downloading $RELEASE_URL"
-curl -sL "$RELEASE_URL" | tar xvz -C $where
-echo "bctl installed to ${where}/bctl"
+BINARY_NAME="bctl_${opsys}_${arch}.tar.gz"
+CHECKSUM_NAME="boundless_${VERSION:1}_checksums.txt"
+
+cleanup() {
+  rm -f ${BINARY_NAME}
+  rm -f ${CHECKSUM_NAME}
+}
+
+# Download the binary
+BINARY_URL=${DOWNLOAD_URL}/${BINARY_NAME}
+echo "Downloading ${BINARY_URL}"
+curl -sL ${BINARY_URL} -O
+
+# Download the checksum
+CHECKSUM_URL=${DOWNLOAD_URL}/${CHECKSUM_NAME}
+echo "Downloading ${CHECKSUM_URL}..."
+curl -sL ${CHECKSUM_URL} -O
+
+# Verify the checksum
+echo "Verifying checksum..."
+sha256sum -c ${CHECKSUM_NAME} --ignore-missing 2>/dev/null
+if [[ $? -ne 0 ]]
+then
+  echo "Checksum verification failed. Exiting without installing"
+  # cleanup
+  exit 1
+fi
+
+# Install the binary
+sudo tar xzf ${BINARY_NAME} -C ${INSTALL_DIR}
+if [[ $? -ne 0 ]]
+then
+  echo "Installation failed. Exiting without installing"
+  cleanup
+  exit 1
+fi
+
+echo "bctl installed to ${INSTALL_DIR}"
+cleanup
+
