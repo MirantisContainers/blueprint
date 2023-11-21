@@ -71,7 +71,7 @@ fi
 if [[ $? -ne 0 ]]
 then
   echo "Checksum verification failed. Exiting without installing"
-  # cleanup
+  cleanup
   exit 1
 fi
 
