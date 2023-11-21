@@ -55,11 +55,23 @@ curl -sL ${CHECKSUM_URL} -O
 
 # Verify the checksum
 echo "Verifying checksum..."
-sha256sum -c ${CHECKSUM_NAME} --ignore-missing 2>/dev/null
+# Check shasum depending on which version of shasum is installed
+if command -v sha256sum &> /dev/null
+then
+  sha256sum -c ${CHECKSUM_NAME} --ignore-missing 2>/dev/null
+elif command -v shasum &> /dev/null
+then
+  shasum -a 256 -c ${CHECKSUM_NAME} --ignore-missing 2>/dev/null
+else
+  echo "Unable to find a shasum command installed. Exiting without installing"
+  cleanup
+  exit 1
+fi
+
 if [[ $? -ne 0 ]]
 then
   echo "Checksum verification failed. Exiting without installing"
-  # cleanup
+  cleanup
   exit 1
 fi
 
