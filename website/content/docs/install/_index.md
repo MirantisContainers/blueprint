@@ -43,4 +43,4 @@ rm /usr/local/bin/bctl
 
 ### Getting started
 
-Now that you have boundless installed, check out the [getting started guide](/docs/getting-started) to create your first cluster.
+Now that you have boundless installed, check out the [getting started guide](/docs/getting-started) to walk through creating your first cluster or go straight to the [examples](/docs/examples) section to see some example blueprints.
