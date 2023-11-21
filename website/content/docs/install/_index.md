@@ -13,11 +13,11 @@ Installing the latest version of Boundless is as simple as running the following
 ```shell
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/mirantis/boundless/main/script/install.sh)"
 ```
-The install script will download the latest version of the boundless cli, verify it with the checksum, and install it to /usr/local/bin/bctl.
+The install script will download the latest version of the boundless cli, verify it with the checksum, and install it to `/usr/local/bin/bctl`.
 
 #### Specific version
 
-If you would like to install a specific version of Boundless, you can specify the version as an argument to the install script:
+If you would like to install a specific version of Boundless, you can specify the version as an environment var for the install script:
 
 ```shell
 /bin/bash -c "VERSION=<desired version> $(curl -fsSL https://raw.githubusercontent.com/mirantis/boundless/main/script/install.sh)"
@@ -25,18 +25,16 @@ If you would like to install a specific version of Boundless, you can specify th
 
 You can find the different releases on the [releases page](https://github.com/Mirantis/boundless/releases).
 
-> Note: The
-
 ### Manual installation
 
-Open the [releases page](https://github.com/Mirantis/boundless/releases) and download the correct binary for your machine along with the boundless_<version>_checksums.txt file.
+Open the [releases page](https://github.com/Mirantis/boundless/releases) and download the correct binary for your machine along with the boundless_\<version\>_checksums.txt file.
 Place both in the same directory and run the following command:
 
 ```shell
 sha256sum -c boundless_<version>_checksums.txt --ignore-missing 2>/dev/null
 ```
 
-This will only print `OK` if atleast one of the files matches the checksums in the checksum file. Otherwise, it will return an error.
+This will only print `OK` if at least one of the files matches the checksums in the checksum file. Otherwise, it will return an error.
 
 Next you can install the binary on your system using the following `tar` command:
 
