@@ -68,23 +68,16 @@ INFO[0172] Applying Boundless Operator resource
 INFO[0172] Applying Blueprint
 INFO[0172] Finished installing Boundless Operator
 ```
+> Note: `bctl apply` adds kube config context to default location and set it as the _current context_
 
-> Wait for Lens AppIQ to come up
+
+Wait for Lens AppIQ to come up
 ```shell
 kubectl wait --namespace shipa-system \
                 --for=condition=ready pod \
                 --selector=app.kubernetes.io/managed-by=LensApps \
                 --timeout=180s
 ```
-
-3. Connect to the cluster:
-   ```shell
-   export KUBECONFIG=./kubeconfig
-   kubectl get pods
-   ```
-   Note: `bctl` will create a `kubeconfig` file in the current directory.
-   Use this file to connect to the cluster.
-
 
 # Access Lens AppIQ
 ## Install Lens AppIQ CLI

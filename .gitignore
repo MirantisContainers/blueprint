@@ -1,3 +1,5 @@
 website/public/
 blueprint.yaml
 kubeconfig
+
+.idea
