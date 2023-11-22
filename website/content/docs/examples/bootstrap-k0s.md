@@ -64,22 +64,16 @@ Refer to the example TF scripts: https://github.com/Mirantis/boundless-cli/tree/
    ```shell
    bctl apply --config blueprint.yaml
    ```
-4. Connect to the cluster:
-   ```shell
-   export KUBECONFIG=./kubeconfig
-   kubectl get pods
-   ```
-   Note: `bctl` will create a `kubeconfig` file in the current directory.
-   Use this file to connect to the cluster.
-5. Update the cluster by modifying `blueprint.yaml` and then running:
+   > Note: `bctl apply` adds kube config context to default location and set it as the _current context_
+4. Update the cluster by modifying `blueprint.yaml` and then running:
    ```shell
    bctl update --config blueprint.yaml
    ```
-6. Delete the cluster:
+5. Delete the cluster:
    ```shell
    bctl reset --config blueprint.yaml
    ```
-7. Delete virtual machines:
+6. Delete virtual machines:
    ```bash
    cd example/aws-tf
    terraform destroy --auto-approve

@@ -14,7 +14,7 @@ spec:
     addons:
       - name: my-grafana
         enabled: true
-        kind: HelmAddon
+        kind: helm
         namespace: monitoring
         chart:
           name: grafana

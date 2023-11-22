@@ -44,17 +44,11 @@ It is currently possible to view and edit the documentation website locally. See
    ```shell
    bctl apply --config blueprint.yaml
    ```
-4. Connect to the cluster:
-   ```shell
-   export KUBECONFIG=./kubeconfig
-   kubectl get pods
-   ```
-   Note: `bctl` will create a `kubeconfig` file in the current directory.
    Use this file to connect to the cluster.
-5. Add wordpress addon to the `blueprint.yaml`:
+4. Add wordpress addon to the `blueprint.yaml`:
    ```YAML
    - name: wordpress
-     kind: HelmAddon
+     kind: helm
      enabled: true
      namespace: wordpress
      chart:
@@ -67,7 +61,7 @@ It is currently possible to view and edit the documentation website locally. See
    ```shell
    bctl update --config blueprint.yaml
    ```
-6. Delete the cluster:
+5. Delete the cluster:
    ```shell
    bctl reset --config blueprint.yaml
    ```
@@ -94,7 +88,7 @@ It is currently possible to view and edit the documentation website locally. See
     components:
       addons:
         - name: example-server
-          kind: HelmAddon
+          kind: helm
           enabled: true
           namespace: default
           chart:
@@ -177,22 +171,15 @@ Refer to the example TF scripts: https://github.com/Mirantis/boundless-cli/tree/
    ```shell
    bctl apply --config blueprint.yaml
    ```
-4. Connect to the cluster:
-   ```shell
-   export KUBECONFIG=./kubeconfig
-   kubectl get pods
-   ```
-   Note: `bctl` will create a `kubeconfig` file in the current directory.
-   Use this file to connect to the cluster.
-5. Update the cluster by modifying `blueprint.yaml` and then running:
+4. Update the cluster by modifying `blueprint.yaml` and then running:
    ```shell
    bctl update --config blueprint.yaml
    ```
-6. Delete the cluster:
+5. Delete the cluster:
    ```shell
    bctl reset --config blueprint.yaml
    ```
-7. Delete virtual machines:
+6. Delete virtual machines:
    ```bash
    cd example/aws-tf
    terraform destroy --auto-approve
@@ -227,7 +214,7 @@ spec:
    addons:
    - name: my-grafana
      enabled: true
-     kind: HelmAddon
+     kind: helm
      namespace: monitoring
      chart:
        name: grafana
@@ -264,7 +251,7 @@ spec:
               type: NodePort
     addons:
       - name: example-server
-        kind: HelmAddon
+        kind: helm
         enabled: true
         namespace: default
         chart:
@@ -316,7 +303,7 @@ spec:
                 type: NodePort
       addons:
         - name: example-server
-          kind: HelmAddon
+          kind: helm
           enabled: true
           namespace: default
           chart:
