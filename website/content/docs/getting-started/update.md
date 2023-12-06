@@ -9,7 +9,7 @@ weight: 2
 1. Add a wordpress addon to the `blueprint.yaml`:
    ```YAML
    - name: wordpress
-     kind: helm
+     kind: chart
      enabled: true
      namespace: wordpress
      chart:

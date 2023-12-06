@@ -24,7 +24,7 @@ weight: 3
     components:
       addons:
         - name: example-server
-          kind: helm
+          kind: chart
           enabled: true
           namespace: default
           chart:
