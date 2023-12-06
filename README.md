@@ -48,7 +48,7 @@ It is currently possible to view and edit the documentation website locally. See
 4. Add wordpress addon to the `blueprint.yaml`:
    ```YAML
    - name: wordpress
-     kind: helm
+     kind: chart
      enabled: true
      namespace: wordpress
      chart:
@@ -88,7 +88,7 @@ It is currently possible to view and edit the documentation website locally. See
     components:
       addons:
         - name: example-server
-          kind: helm
+          kind: chart
           enabled: true
           namespace: default
           chart:
@@ -214,7 +214,7 @@ spec:
    addons:
    - name: my-grafana
      enabled: true
-     kind: helm
+     kind: chart
      namespace: monitoring
      chart:
        name: grafana
@@ -251,7 +251,7 @@ spec:
               type: NodePort
     addons:
       - name: example-server
-        kind: helm
+        kind: chart
         enabled: true
         namespace: default
         chart:
@@ -303,7 +303,7 @@ spec:
                 type: NodePort
       addons:
         - name: example-server
-          kind: helm
+          kind: chart
           enabled: true
           namespace: default
           chart:

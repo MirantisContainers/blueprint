@@ -18,7 +18,7 @@ spec:
   components:
     addons:
       - name: lens-appiq
-        kind: helm
+        kind: chart
         enabled: true
         namespace: shipa-system
         chart:
