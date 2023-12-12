@@ -17,7 +17,7 @@ export LAIQ_PASSWORD=<Admin user password>
 
 #### Apply the blueprint
 
-Our [example blueprint](https://raw.githubusercontent.com/Mirantis/boundless/main/blueprints/lensappiq/lensappiq-kind-blueprint.yaml) for Lens AppIQ will bootstrap a `kind` cluster, install `Boundless Operator`, install addons from the blueprint. Once you've downloaded the blueprint, apply it with `bctl`:
+Our [example blueprint](https://raw.githubusercontent.com/mirantiscontainers/boundless/main/blueprints/lensappiq/lensappiq-kind-blueprint.yaml) for Lens AppIQ will bootstrap a `kind` cluster, install `Boundless Operator`, install addons from the blueprint. Once you've downloaded the blueprint, apply it with `bctl`:
 
 ```shell
 bctl apply -c lensappiq-kind-blueprint.yaml

@@ -15,7 +15,7 @@ Along with `boundless` CLI, you will also need the following tools:
 
 There are `terraform` scripts in the `example/` directory that can be used to create machines on AWS.
 
-Refer to the example TF scripts: https://github.com/Mirantis/boundless-cli/tree/main/example/aws-tf
+Refer to the example TF scripts: https://github.com/mirantiscontainers/boundless-cli/tree/main/example/aws-tf
 
 1. `cd example/aws-tf`
 2. Create a `terraform.tfvars` file with the content similar to:
