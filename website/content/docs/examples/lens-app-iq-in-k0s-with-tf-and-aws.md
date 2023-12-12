@@ -11,7 +11,7 @@ Bootstrap a k0s cluster in AWs with terraform and install Lens AppIQ.
 
 For AWS there are `terraform` scripts in the `example/` directory that can be used to create machines on AWS.
 
-Refer to the example TF scripts: https://github.com/Mirantis/boundless-cli/tree/main/example/aws-tf
+Refer to the example TF scripts: https://github.com/mirantiscontainers/boundless-cli/tree/main/example/aws-tf
 
 1. `cd example/aws-tf`
 2. Create a `terraform.tfvars` file with the content similar to:
@@ -27,7 +27,7 @@ Refer to the example TF scripts: https://github.com/Mirantis/boundless-cli/tree/
 
 #### Install blueprint on `k0s`
 
-1. Download the [example blueprint](https://raw.githubusercontent.com/Mirantis/boundless/main/blueprints/lensappiq/lensappiq-k0s-blueprint.yaml) for Lens AppIQ and save it as `lensappiq-k0s-blueprint.yaml`.
+1. Download the [example blueprint](https://raw.githubusercontent.com/mirantiscontainers/boundless/main/blueprints/lensappiq/lensappiq-k0s-blueprint.yaml) for Lens AppIQ and save it as `lensappiq-k0s-blueprint.yaml`.
 2. Edit the `lensappiq-k0s-blueprint.yaml` file to set the `spec.kubernetes.infra.hosts` from the output of `terraform output --raw bop_cluster`.
 
    The `spec.kubernetes.infra.hosts` section should look similar to:

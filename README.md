@@ -22,15 +22,15 @@ It is currently possible to view and edit the documentation website locally. See
   * [Core Components](#core-components)
   * [Add-ons](#add-ons)
 * [Sample Blueprints](#sample-blueprints)
-* [Lens AppIQ Blueprint](https://github.com/Mirantis/boundless/blob/main/blueprints/lensappiq/README.md#lens-appiq-blueprint)
+* [Lens AppIQ Blueprint](https://github.com/mirantiscontainers/boundless/blob/main/blueprints/lensappiq/README.md#lens-appiq-blueprint)
 <!-- TOC -->
 
 ### Pre-requisite
 1. Install Boundless CLI binary:
    ```shell
-   /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/mirantis/boundless/main/script/install.sh)"
+   /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/mirantiscontainers/boundless/main/script/install.sh)"
    ```
-   This will install `bctl` to `/usr/local/bin`. See [here](https://github.com/Mirantis/boundless/releases) for all releases.
+   This will install `bctl` to `/usr/local/bin`. See [here](https://github.com/mirantiscontainers/boundless/releases) for all releases.
 
 ### Bootstrap kind cluster and install add-ons
 
@@ -70,7 +70,7 @@ It is currently possible to view and edit the documentation website locally. See
 
 1. Install Boundless Operator
    ```shell
-   kubectl apply -f https://raw.githubusercontent.com/mirantis/boundless/main/deploy/static/boundless-operator.yaml
+   kubectl apply -f https://raw.githubusercontent.com/mirantiscontainers/boundless/main/deploy/static/boundless-operator.yaml
    ```
 2. Wait for boundless operator to be ready
    ```shell
@@ -122,7 +122,7 @@ Ensure that following are installed on the system:
 
 There are `terraform` scripts in the `example/` directory that can be used to create machines on AWS.
 
-Refer to the example TF scripts: https://github.com/Mirantis/boundless-cli/tree/main/example/aws-tf
+Refer to the example TF scripts: https://github.com/mirantiscontainers/boundless-cli/tree/main/example/aws-tf
 
 1. `cd example/aws-tf`
 2. Create a `terraform.tfvars` file with the content similar to:

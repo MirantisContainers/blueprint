@@ -7,17 +7,17 @@ Lens AppIQ Boundless Blueprint Tech Preview.
 This blueprint bootstraps a kind cluster and installs Lens AppIQ.
 
 ### Pre-req
-* [Install Boundless CLI `bctl`](https://github.com/Mirantis/boundless/blob/main/README.md#pre-requisite)
+* [Install Boundless CLI `bctl`](https://github.com/mirantiscontainers/boundless/blob/main/README.md#pre-requisite)
 
 ### Bootstrap a `Kind` cluster with Lens AppIQ
 
-### Installation 
+### Installation
 
 Set admin user's email and password.
 ```shell
 export LAIQ_USER=<Admin User Email>
 export LAIQ_PASSWORD=<Admin user password>
-```  
+```
 
 ```shell
 bctl apply -f lensappiq-kind-blueprint.yaml
@@ -26,33 +26,33 @@ bctl apply -f lensappiq-kind-blueprint.yaml
 > Above command bootstraps a `kind` cluster, install `Boundless Operator`, once Boundless Operator is up, it installs addons from the blueprint.
 
 ```shell
-$ bctl apply -c lensappiq-kind-blueprint.yaml 
-INFO[0000] Installing Kubernetes distribution: kind     
-INFO[0000] Installing Kubernetes distribution: kind     
+$ bctl apply -c lensappiq-kind-blueprint.yaml
+INFO[0000] Installing Kubernetes distribution: kind
+INFO[0000] Installing Kubernetes distribution: kind
 Creating cluster "lens-appiq-cluster" ...
- ✓ Ensuring node image (kindest/node:v1.27.3) 🖼 
- ✓ Preparing nodes 📦  
- ✓ Writing configuration 📜 
- ✓ Starting control-plane 🕹️ 
- ✓ Installing CNI 🔌 
- ✓ Installing StorageClass 💾 
+ ✓ Ensuring node image (kindest/node:v1.27.3) 🖼
+ ✓ Preparing nodes 📦
+ ✓ Writing configuration 📜
+ ✓ Starting control-plane 🕹️
+ ✓ Installing CNI 🔌
+ ✓ Installing StorageClass 💾
 Set kubectl context to "kind-lens-appiq-cluster"
 You can now use your cluster with:
 
 kubectl cluster-info --context kind-lens-appiq-cluster --kubeconfig kubeconfig
 
 Not sure what to do next? 😅  Check out https://kind.sigs.k8s.io/docs/user/quick-start/
-INFO[0030] Waiting for nodes to be ready                
-INFO[0045] Installing Boundless Operator                
-INFO[0047] Waiting for all pods to be ready             
-INFO[0057] Applying Boundless Operator resource         
-INFO[0057] Applying Blueprint                           
-INFO[0057] Finished installing Boundless Operator       
+INFO[0030] Waiting for nodes to be ready
+INFO[0045] Installing Boundless Operator
+INFO[0047] Waiting for all pods to be ready
+INFO[0057] Applying Boundless Operator resource
+INFO[0057] Applying Blueprint
+INFO[0057] Finished installing Boundless Operator
 ```
 
 Wait for `Lens AppIQ` installation to complete.
 ```shell
-kubectl wait --namespace shipa-system \                             
+kubectl wait --namespace shipa-system \
                 --for=condition=ready pod \
                 --selector=app.kubernetes.io/managed-by=LensApps \
                 --timeout=180s
@@ -68,7 +68,7 @@ Bootstrap a k0s cluster and install Lens AppIQ.
 
 **For AWS** there are `terraform` scripts in the `example/` directory that can be used to create machines on AWS.
 
-Refer to the example TF scripts: https://github.com/Mirantis/boundless-cli/tree/main/example/aws-tf
+Refer to the example TF scripts: https://github.com/mirantiscontainers/boundless-cli/tree/main/example/aws-tf
 
 1. `cd example/aws-tf`
 2. Create a `terraform.tfvars` file with the content similar to:
@@ -109,11 +109,11 @@ Refer to the example TF scripts: https://github.com/Mirantis/boundless-cli/tree/
              user: ubuntu
            role: worker
    ```
-   
+
    > For Single node configuration (such as when running for testing on Lima VM on Mac or a QEMU VM on linux), remove worker ssh entry and change `role: controller` to `role: single`
 
 2. Bootstrap `k0s` on provided VMs and install Lens AppIQ
-   Bootstrap a controller and worker k0s nodes and install Lens AppIQ: 
+   Bootstrap a controller and worker k0s nodes and install Lens AppIQ:
    ```shell
    bctl apply --config lensappiq-k0s-blueprint.yaml
    ```
@@ -122,8 +122,8 @@ Refer to the example TF scripts: https://github.com/Mirantis/boundless-cli/tree/
 
    ```shell
    $ bctl apply -c lensappiq-k0s-lima-blueprint.yaml
-   INFO[0000] Installing Kubernetes distribution: k0s      
-   
+   INFO[0000] Installing Kubernetes distribution: k0s
+
    ⠀⣿⣿⡇⠀⠀⢀⣴⣾⣿⠟⠁⢸⣿⣿⣿⣿⣿⣿⣿⡿⠛⠁⠀⢸⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠀█████████ █████████ ███
    ⠀⣿⣿⡇⣠⣶⣿⡿⠋⠀⠀⠀⢸⣿⡇⠀⠀⠀⣠⠀⠀⢀⣠⡆⢸⣿⣿⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀███          ███    ███
    ⠀⣿⣿⣿⣿⣟⠋⠀⠀⠀⠀⠀⢸⣿⡇⠀⢰⣾⣿⠀⠀⣿⣿⡇⢸⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠀███          ███    ███
@@ -133,46 +133,46 @@ Refer to the example TF scripts: https://github.com/Mirantis/boundless-cli/tree/
    Anonymized telemetry of usage will be sent to the authors.
    By continuing to use k0sctl you agree to these terms:
    https://k0sproject.io/licenses/eula
-   INFO ==> Running phase: Connect to hosts 
-   INFO [ssh] 127.0.0.1:60022: connected             
-   INFO ==> Running phase: Detect host operating systems 
-   INFO [ssh] 127.0.0.1:60022: is running Ubuntu 23.10 
-   INFO ==> Running phase: Acquire exclusive host lock 
-   INFO ==> Running phase: Prepare hosts    
-   INFO ==> Running phase: Gather host facts 
-   INFO [ssh] 127.0.0.1:60022: using lima-default as hostname 
-   INFO [ssh] 127.0.0.1:60022: discovered eth0 as private interface 
-   INFO [ssh] 127.0.0.1:60022: discovered 192.168.5.15 as private address 
-   INFO ==> Running phase: Validate hosts   
-   INFO ==> Running phase: Gather k0s facts 
-   INFO ==> Running phase: Validate facts   
-   INFO ==> Running phase: Download k0s on hosts 
-   INFO [ssh] 127.0.0.1:60022: downloading k0s v1.28.3+k0s.0 
-   INFO ==> Running phase: Install k0s binaries on hosts 
-   INFO ==> Running phase: Configure k0s    
-   WARN [ssh] 127.0.0.1:60022: generating default configuration 
-   INFO [ssh] 127.0.0.1:60022: validating configuration 
-   INFO [ssh] 127.0.0.1:60022: configuration was changed, installing new configuration 
-   INFO ==> Running phase: Initialize the k0s cluster 
-   INFO [ssh] 127.0.0.1:60022: installing k0s controller 
-   INFO [ssh] 127.0.0.1:60022: waiting for the k0s service to start 
-   INFO [ssh] 127.0.0.1:60022: waiting for kubernetes api to respond 
-   INFO ==> Running phase: Release exclusive host lock 
-   INFO ==> Running phase: Disconnect from hosts 
-   INFO ==> Finished in 1m31s               
-   INFO k0s cluster version v1.28.3+k0s.0 is now installed 
-   INFO[0092] Waiting for nodes to be ready                
-   INFO[0142] Installing Boundless Operator                
-   INFO[0142] Waiting for all pods to be ready             
-   INFO[0172] Applying Boundless Operator resource         
-   INFO[0172] Applying Blueprint                           
-   INFO[0172] Finished installing Boundless Operator       
+   INFO ==> Running phase: Connect to hosts
+   INFO [ssh] 127.0.0.1:60022: connected
+   INFO ==> Running phase: Detect host operating systems
+   INFO [ssh] 127.0.0.1:60022: is running Ubuntu 23.10
+   INFO ==> Running phase: Acquire exclusive host lock
+   INFO ==> Running phase: Prepare hosts
+   INFO ==> Running phase: Gather host facts
+   INFO [ssh] 127.0.0.1:60022: using lima-default as hostname
+   INFO [ssh] 127.0.0.1:60022: discovered eth0 as private interface
+   INFO [ssh] 127.0.0.1:60022: discovered 192.168.5.15 as private address
+   INFO ==> Running phase: Validate hosts
+   INFO ==> Running phase: Gather k0s facts
+   INFO ==> Running phase: Validate facts
+   INFO ==> Running phase: Download k0s on hosts
+   INFO [ssh] 127.0.0.1:60022: downloading k0s v1.28.3+k0s.0
+   INFO ==> Running phase: Install k0s binaries on hosts
+   INFO ==> Running phase: Configure k0s
+   WARN [ssh] 127.0.0.1:60022: generating default configuration
+   INFO [ssh] 127.0.0.1:60022: validating configuration
+   INFO [ssh] 127.0.0.1:60022: configuration was changed, installing new configuration
+   INFO ==> Running phase: Initialize the k0s cluster
+   INFO [ssh] 127.0.0.1:60022: installing k0s controller
+   INFO [ssh] 127.0.0.1:60022: waiting for the k0s service to start
+   INFO [ssh] 127.0.0.1:60022: waiting for kubernetes api to respond
+   INFO ==> Running phase: Release exclusive host lock
+   INFO ==> Running phase: Disconnect from hosts
+   INFO ==> Finished in 1m31s
+   INFO k0s cluster version v1.28.3+k0s.0 is now installed
+   INFO[0092] Waiting for nodes to be ready
+   INFO[0142] Installing Boundless Operator
+   INFO[0142] Waiting for all pods to be ready
+   INFO[0172] Applying Boundless Operator resource
+   INFO[0172] Applying Blueprint
+   INFO[0172] Finished installing Boundless Operator
    ```
    > Note: `bctl apply` adds kube config context to default location and set it as the _current context_
 
 3. Wait for Lens AppIQ to come up
    ```shell
-   kubectl wait --namespace shipa-system \                             
+   kubectl wait --namespace shipa-system \
                    --for=condition=ready pod \
                    --selector=app.kubernetes.io/managed-by=LensApps \
                    --timeout=180s
@@ -196,13 +196,13 @@ sudo ip route add $(kubectl get service shipa-ingress-nginx -n shipa-system -o j
 
 **Mac**
 ```shell
-sudo route -n add -net $(kubectl get service shipa-ingress-nginx -n shipa-system -o jsonpath='{.spec.clusterIP}')  $(docker container inspect lens-appiq-cluster-control-plane --format '{{ .NetworkSettings.Networks.kind.IPAddress }}') 
+sudo route -n add -net $(kubectl get service shipa-ingress-nginx -n shipa-system -o jsonpath='{.spec.clusterIP}')  $(docker container inspect lens-appiq-cluster-control-plane --format '{{ .NetworkSettings.Networks.kind.IPAddress }}')
 ```
 ## Login to Lens AppIQ
 
 Setup Lens AppIQ Target
 ```shell
-lapps target add laiq $(kubectl get service shipa-ingress-nginx -n shipa-system -o jsonpath='{.spec.clusterIP}') 
+lapps target add laiq $(kubectl get service shipa-ingress-nginx -n shipa-system -o jsonpath='{.spec.clusterIP}')
 ```
 Login using `$LAIQ_USER` and `$LAIQ_PASSWORD`
 ```shell
@@ -219,5 +219,5 @@ lapps dashboard open
 ```shell
 bctl reset -c lensappiq-kind-blueprint.yaml
 # Team workaround
-delete helmcharts.helm.cattle.io -n shipa-system shipa 
+delete helmcharts.helm.cattle.io -n shipa-system shipa
 ```

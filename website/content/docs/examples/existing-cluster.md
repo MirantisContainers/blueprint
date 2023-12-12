@@ -6,7 +6,7 @@ weight: 3
 
 1. Install Boundless Operator
    ```shell
-   kubectl apply -f https://raw.githubusercontent.com/mirantis/boundless/main/deploy/static/boundless-operator.yaml
+   kubectl apply -f https://raw.githubusercontent.com/mirantiscontainers/boundless/main/deploy/static/boundless-operator.yaml
    ```
 2. Wait for boundless operator to be ready
    ```shell
