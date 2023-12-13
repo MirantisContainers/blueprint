@@ -5,7 +5,7 @@ The only ZeroOps Container Platform for Modern Apps. A collaborative ‘design a
 ## Documentation
 
 If you are a Mirantis employee, you can learn about boundless in our [wiki](https://mirantis.jira.com/wiki/spaces/BOP/overview).
-We are in the process of converting the wiki to a markdown website that will be available as part of this repo. The website is available [here](https://mirantis.github.io/boundless/).
+We are in the process of converting the wiki to a markdown website that will be available as part of this repo. The website is available [here](https://mirantiscontainers.github.io/boundless/).
 
 ### Editing the website
 
