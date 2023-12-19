@@ -27,94 +27,100 @@ spec:
     singular: addon
   scope: Namespaced
   versions:
-  - additionalPrinterColumns:
-    - description: Whether the component is running and stable.
-      jsonPath: .status.type
-      name: Status
-      type: string
-    name: v1alpha1
-    schema:
-      openAPIV3Schema:
-        description: Addon is the Schema for the addons API
-        properties:
-          apiVersion:
-            description: 'APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources'
-            type: string
-          kind:
-            description: 'Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds'
-            type: string
-          metadata:
-            type: object
-          spec:
-            description: AddonSpec defines the desired state of Addon
-            properties:
-              chart:
-                properties:
-                  name:
-                    type: string
-                  repo:
-                    type: string
-                  set:
-                    additionalProperties:
-                      anyOf:
-                      - type: integer
-                      - type: string
-                      x-kubernetes-int-or-string: true
-                    type: object
-                  values:
-                    type: string
-                  version:
-                    type: string
-                required:
+    - additionalPrinterColumns:
+        - description: Whether the component is running and stable.
+          jsonPath: .status.type
+          name: Status
+          type: string
+      name: v1alpha1
+      schema:
+        openAPIV3Schema:
+          description: Addon is the Schema for the addons API
+          properties:
+            apiVersion:
+              description: 'APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources'
+              type: string
+            kind:
+              description: 'Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds'
+              type: string
+            metadata:
+              type: object
+            spec:
+              description: AddonSpec defines the desired state of Addon
+              properties:
+                chart:
+                  properties:
+                    name:
+                      type: string
+                    repo:
+                      type: string
+                    set:
+                      additionalProperties:
+                        anyOf:
+                          - type: integer
+                          - type: string
+                        x-kubernetes-int-or-string: true
+                      type: object
+                    values:
+                      type: string
+                    version:
+                      type: string
+                  required:
+                    - name
+                    - repo
+                    - version
+                  type: object
+                enabled:
+                  type: boolean
+                kind:
+                  enum:
+                    - manifest
+                    - chart
+                    - Manifest
+                    - Chart
+                  type: string
+                manifest:
+                  properties:
+                    url:
+                      minLength: 1
+                      type: string
+                  required:
+                    - url
+                  type: object
+                name:
+                  type: string
+                namespace:
+                  type: string
+              required:
+                - enabled
+                - kind
                 - name
-                - repo
-                - version
-                type: object
-              enabled:
-                type: boolean
-              kind:
-                type: string
-              manifest:
-                properties:
-                  url:
-                    type: string
-                required:
-                - url
-                type: object
-              name:
-                type: string
-              namespace:
-                type: string
-            required:
-            - enabled
-            - kind
-            - name
-            type: object
-          status:
-            description: AddonStatus defines the observed state of Addon
-            properties:
-              lastTransitionTime:
-                description: The timestamp representing the start time for the current status.
-                format: date-time
-                type: string
-              message:
-                description: Optionally, a detailed message providing additional context.
-                type: string
-              reason:
-                description: A brief reason explaining the condition.
-                type: string
-              type:
-                description: The type of condition. May be Available, Progressing, or Degraded.
-                type: string
-            required:
-            - lastTransitionTime
-            - type
-            type: object
-        type: object
-    served: true
-    storage: true
-    subresources:
-      status: {}
+              type: object
+            status:
+              description: AddonStatus defines the observed state of Addon
+              properties:
+                lastTransitionTime:
+                  description: The timestamp representing the start time for the current status.
+                  format: date-time
+                  type: string
+                message:
+                  description: Optionally, a detailed message providing additional context.
+                  type: string
+                reason:
+                  description: A brief reason explaining the condition.
+                  type: string
+                type:
+                  description: The type of condition. May be Available, Progressing, or Degraded.
+                  type: string
+              required:
+                - lastTransitionTime
+                - type
+              type: object
+          type: object
+      served: true
+      storage: true
+      subresources:
+        status: {}
 ---
 apiVersion: apiextensions.k8s.io/v1
 kind: CustomResourceDefinition
@@ -132,99 +138,105 @@ spec:
     singular: blueprint
   scope: Namespaced
   versions:
-  - name: v1alpha1
-    schema:
-      openAPIV3Schema:
-        description: Blueprint is the Schema for the blueprints API
-        properties:
-          apiVersion:
-            description: 'APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources'
-            type: string
-          kind:
-            description: 'Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds'
-            type: string
-          metadata:
-            type: object
-          spec:
-            description: BlueprintSpec defines the desired state of Blueprint
-            properties:
-              components:
-                description: Components contains all the components that should be installed
-                properties:
-                  addons:
-                    items:
-                      description: AddonSpec defines the desired state of Addon
-                      properties:
-                        chart:
-                          properties:
-                            name:
-                              type: string
-                            repo:
-                              type: string
-                            set:
-                              additionalProperties:
-                                anyOf:
-                                - type: integer
-                                - type: string
-                                x-kubernetes-int-or-string: true
-                              type: object
-                            values:
-                              type: string
-                            version:
-                              type: string
-                          required:
-                          - name
-                          - repo
-                          - version
-                          type: object
-                        enabled:
-                          type: boolean
-                        kind:
-                          type: string
-                        manifest:
-                          properties:
-                            url:
-                              type: string
-                          required:
-                          - url
-                          type: object
-                        name:
-                          type: string
-                        namespace:
-                          type: string
-                      required:
-                      - enabled
-                      - kind
-                      - name
-                      type: object
-                    type: array
-                  core:
-                    properties:
-                      ingress:
-                        description: IngressSpec defines the desired state of Ingress
+    - name: v1alpha1
+      schema:
+        openAPIV3Schema:
+          description: Blueprint is the Schema for the blueprints API
+          properties:
+            apiVersion:
+              description: 'APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources'
+              type: string
+            kind:
+              description: 'Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds'
+              type: string
+            metadata:
+              type: object
+            spec:
+              description: BlueprintSpec defines the desired state of Blueprint
+              properties:
+                components:
+                  description: Components contains all the components that should be installed
+                  properties:
+                    addons:
+                      items:
+                        description: AddonSpec defines the desired state of Addon
                         properties:
-                          config:
-                            type: string
+                          chart:
+                            properties:
+                              name:
+                                type: string
+                              repo:
+                                type: string
+                              set:
+                                additionalProperties:
+                                  anyOf:
+                                    - type: integer
+                                    - type: string
+                                  x-kubernetes-int-or-string: true
+                                type: object
+                              values:
+                                type: string
+                              version:
+                                type: string
+                            required:
+                              - name
+                              - repo
+                              - version
+                            type: object
                           enabled:
-                            description: Enabled is a flag to enable/disable the ingress
                             type: boolean
-                          provider:
+                          kind:
+                            enum:
+                              - manifest
+                              - chart
+                              - Manifest
+                              - Chart
+                            type: string
+                          manifest:
+                            properties:
+                              url:
+                                minLength: 1
+                                type: string
+                            required:
+                              - url
+                            type: object
+                          name:
+                            type: string
+                          namespace:
                             type: string
                         required:
-                        - enabled
-                        - provider
+                          - enabled
+                          - kind
+                          - name
                         type: object
-                    type: object
-                type: object
-            type: object
-          status:
-            description: BlueprintStatus defines the observed state of Blueprint
-            type: object
-        type: object
-    served: true
-    storage: true
-    subresources:
-      status: {}
+                      type: array
+                    core:
+                      properties:
+                        ingress:
+                          description: IngressSpec defines the desired state of Ingress
+                          properties:
+                            config:
+                              type: string
+                            enabled:
+                              description: Enabled is a flag to enable/disable the ingress
+                              type: boolean
+                            provider:
+                              type: string
+                          required:
+                            - enabled
+                            - provider
+                          type: object
+                      type: object
+                  type: object
+              type: object
+            status:
+              description: BlueprintStatus defines the observed state of Blueprint
+              type: object
+          type: object
+      served: true
+      storage: true
+      subresources:
+        status: {}
 ---
 apiVersion: apiextensions.k8s.io/v1
 kind: CustomResourceDefinition
@@ -242,46 +254,46 @@ spec:
     singular: ingress
   scope: Namespaced
   versions:
-  - name: v1alpha1
-    schema:
-      openAPIV3Schema:
-        description: Ingress is the Schema for the ingresses API
-        properties:
-          apiVersion:
-            description: 'APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources'
-            type: string
-          kind:
-            description: 'Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds'
-            type: string
-          metadata:
-            type: object
-          spec:
-            description: IngressSpec defines the desired state of Ingress
-            properties:
-              config:
-                type: string
-              enabled:
-                description: Enabled is a flag to enable/disable the ingress
-                type: boolean
-              provider:
-                type: string
-            required:
-            - enabled
-            - provider
-            type: object
-          status:
-            description: IngressStatus defines the observed state of Ingress
-            properties:
-              ingressReady:
-                type: boolean
-            required:
-            - ingressReady
-            type: object
-        type: object
-    served: true
-    storage: true
-    subresources:
-      status: {}
+    - name: v1alpha1
+      schema:
+        openAPIV3Schema:
+          description: Ingress is the Schema for the ingresses API
+          properties:
+            apiVersion:
+              description: 'APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources'
+              type: string
+            kind:
+              description: 'Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds'
+              type: string
+            metadata:
+              type: object
+            spec:
+              description: IngressSpec defines the desired state of Ingress
+              properties:
+                config:
+                  type: string
+                enabled:
+                  description: Enabled is a flag to enable/disable the ingress
+                  type: boolean
+                provider:
+                  type: string
+              required:
+                - enabled
+                - provider
+              type: object
+            status:
+              description: IngressStatus defines the observed state of Ingress
+              properties:
+                ingressReady:
+                  type: boolean
+              required:
+                - ingressReady
+              type: object
+          type: object
+      served: true
+      storage: true
+      subresources:
+        status: {}
 ---
 apiVersion: apiextensions.k8s.io/v1
 kind: CustomResourceDefinition
@@ -299,78 +311,79 @@ spec:
     singular: manifest
   scope: Namespaced
   versions:
-  - additionalPrinterColumns:
-    - description: Whether the component is running and stable.
-      jsonPath: .status.type
-      name: Status
-      type: string
-    name: v1alpha1
-    schema:
-      openAPIV3Schema:
-        description: Manifest is the Schema for the manifests API
-        properties:
-          apiVersion:
-            description: 'APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources'
-            type: string
-          kind:
-            description: 'Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds'
-            type: string
-          metadata:
-            type: object
-          spec:
-            description: ManifestSpec defines the desired state of Manifest
-            properties:
-              checksum:
-                type: string
-              newChecksum:
-                type: string
-              objects:
-                items:
-                  description: ManifestObject consists of the fields required to update/delete an object
-                  properties:
-                    kind:
-                      type: string
-                    name:
-                      type: string
-                    namespace:
-                      type: string
-                  required:
-                  - kind
-                  - name
-                  - namespace
-                  type: object
-                type: array
-              url:
-                type: string
-            required:
-            - checksum
-            - url
-            type: object
-          status:
-            description: ManifestStatus defines the observed state of Manifest
-            properties:
-              lastTransitionTime:
-                description: The timestamp representing the start time for the current status.
-                format: date-time
-                type: string
-              message:
-                description: Optionally, a detailed message providing additional context.
-                type: string
-              reason:
-                description: A brief reason explaining the condition.
-                type: string
-              type:
-                description: The type of condition. May be Available, Progressing, or Degraded.
-                type: string
-            required:
-            - lastTransitionTime
-            - type
-            type: object
-        type: object
-    served: true
-    storage: true
-    subresources:
-      status: {}
+    - additionalPrinterColumns:
+        - description: Whether the component is running and stable.
+          jsonPath: .status.type
+          name: Status
+          type: string
+      name: v1alpha1
+      schema:
+        openAPIV3Schema:
+          description: Manifest is the Schema for the manifests API
+          properties:
+            apiVersion:
+              description: 'APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources'
+              type: string
+            kind:
+              description: 'Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds'
+              type: string
+            metadata:
+              type: object
+            spec:
+              description: ManifestSpec defines the desired state of Manifest
+              properties:
+                checksum:
+                  type: string
+                newChecksum:
+                  type: string
+                objects:
+                  items:
+                    description: ManifestObject consists of the fields required to update/delete an object
+                    properties:
+                      kind:
+                        type: string
+                      name:
+                        type: string
+                      namespace:
+                        type: string
+                    required:
+                      - kind
+                      - name
+                      - namespace
+                    type: object
+                  type: array
+                url:
+                  description: 'INSERT ADDITIONAL SPEC FIELDS - desired state of cluster Important: Run "make" to regenerate code after modifying this file'
+                  type: string
+              required:
+                - checksum
+                - url
+              type: object
+            status:
+              description: ManifestStatus defines the observed state of Manifest
+              properties:
+                lastTransitionTime:
+                  description: The timestamp representing the start time for the current status.
+                  format: date-time
+                  type: string
+                message:
+                  description: Optionally, a detailed message providing additional context.
+                  type: string
+                reason:
+                  description: A brief reason explaining the condition.
+                  type: string
+                type:
+                  description: The type of condition. May be Available, Progressing, or Degraded.
+                  type: string
+              required:
+                - lastTransitionTime
+                - type
+              type: object
+          type: object
+      served: true
+      storage: true
+      subresources:
+        status: {}
 ---
 apiVersion: v1
 kind: ServiceAccount
@@ -398,37 +411,37 @@ metadata:
   name: boundless-operator-leader-election-role
   namespace: boundless-system
 rules:
-- apiGroups:
-  - ""
-  resources:
-  - configmaps
-  verbs:
-  - get
-  - list
-  - watch
-  - create
-  - update
-  - patch
-  - delete
-- apiGroups:
-  - coordination.k8s.io
-  resources:
-  - leases
-  verbs:
-  - get
-  - list
-  - watch
-  - create
-  - update
-  - patch
-  - delete
-- apiGroups:
-  - ""
-  resources:
-  - events
-  verbs:
-  - create
-  - patch
+  - apiGroups:
+      - ""
+    resources:
+      - configmaps
+    verbs:
+      - get
+      - list
+      - watch
+      - create
+      - update
+      - patch
+      - delete
+  - apiGroups:
+      - coordination.k8s.io
+    resources:
+      - leases
+    verbs:
+      - get
+      - list
+      - watch
+      - create
+      - update
+      - patch
+      - delete
+  - apiGroups:
+      - ""
+    resources:
+      - events
+    verbs:
+      - create
+      - patch
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
@@ -436,117 +449,159 @@ metadata:
   creationTimestamp: null
   name: boundless-operator-manager-role
 rules:
-- apiGroups:
-  - ""
-  resources:
-  - events
-  verbs:
-  - create
-  - patch
-- apiGroups:
-  - boundless.mirantis.com
-  resources:
-  - addons
-  verbs:
-  - create
-  - delete
-  - get
-  - list
-  - patch
-  - update
-  - watch
-- apiGroups:
-  - boundless.mirantis.com
-  resources:
-  - addons/finalizers
-  verbs:
-  - update
-- apiGroups:
-  - boundless.mirantis.com
-  resources:
-  - addons/status
-  verbs:
-  - get
-  - patch
-  - update
-- apiGroups:
-  - boundless.mirantis.com
-  resources:
-  - blueprints
-  verbs:
-  - create
-  - delete
-  - get
-  - list
-  - patch
-  - update
-  - watch
-- apiGroups:
-  - boundless.mirantis.com
-  resources:
-  - blueprints/finalizers
-  verbs:
-  - update
-- apiGroups:
-  - boundless.mirantis.com
-  resources:
-  - blueprints/status
-  verbs:
-  - get
-  - patch
-  - update
-- apiGroups:
-  - boundless.mirantis.com
-  resources:
-  - ingresses
-  verbs:
-  - create
-  - delete
-  - get
-  - list
-  - patch
-  - update
-  - watch
-- apiGroups:
-  - boundless.mirantis.com
-  resources:
-  - ingresses/finalizers
-  verbs:
-  - update
-- apiGroups:
-  - boundless.mirantis.com
-  resources:
-  - ingresses/status
-  verbs:
-  - get
-  - patch
-  - update
-- apiGroups:
-  - boundless.mirantis.com
-  resources:
-  - manifests
-  verbs:
-  - create
-  - delete
-  - get
-  - list
-  - patch
-  - update
-  - watch
-- apiGroups:
-  - boundless.mirantis.com
-  resources:
-  - manifests/finalizers
-  verbs:
-  - update
-- apiGroups:
-  - boundless.mirantis.com
-  resources:
-  - manifests/status
-  verbs:
-  - get
-  - patch
-  - update
+  - apiGroups:
+      - ""
+    resources:
+      - events
+    verbs:
+      - create
+      - patch
+  - apiGroups:
+      - apps
+    resources:
+      - daemonsets
+    verbs:
+      - get
+      - list
+      - watch
+  - apiGroups:
+      - apps
+    resources:
+      - daemonsets/status
+    verbs:
+      - get
+  - apiGroups:
+      - apps
+    resources:
+      - deployments
+    verbs:
+      - get
+      - list
+      - watch
+  - apiGroups:
+      - apps
+    resources:
+      - deployments/status
+    verbs:
+      - get
+  - apiGroups:
+      - batch
+    resources:
+      - jobs
+    verbs:
+      - get
+      - list
+      - watch
+  - apiGroups:
+      - batch
+    resources:
+      - jobs/status
+    verbs:
+      - get
+  - apiGroups:
+      - boundless.mirantis.com
+    resources:
+      - addons
+    verbs:
+      - create
+      - delete
+      - get
+      - list
+      - patch
+      - update
+      - watch
+  - apiGroups:
+      - boundless.mirantis.com
+    resources:
+      - addons/finalizers
+    verbs:
+      - update
+  - apiGroups:
+      - boundless.mirantis.com
+    resources:
+      - addons/status
+    verbs:
+      - get
+      - patch
+      - update
+  - apiGroups:
+      - boundless.mirantis.com
+    resources:
+      - blueprints
+    verbs:
+      - create
+      - delete
+      - get
+      - list
+      - patch
+      - update
+      - watch
+  - apiGroups:
+      - boundless.mirantis.com
+    resources:
+      - blueprints/finalizers
+    verbs:
+      - update
+  - apiGroups:
+      - boundless.mirantis.com
+    resources:
+      - blueprints/status
+    verbs:
+      - get
+      - patch
+      - update
+  - apiGroups:
+      - boundless.mirantis.com
+    resources:
+      - ingresses
+    verbs:
+      - create
+      - delete
+      - get
+      - list
+      - patch
+      - update
+      - watch
+  - apiGroups:
+      - boundless.mirantis.com
+    resources:
+      - ingresses/finalizers
+    verbs:
+      - update
+  - apiGroups:
+      - boundless.mirantis.com
+    resources:
+      - ingresses/status
+    verbs:
+      - get
+      - patch
+      - update
+  - apiGroups:
+      - boundless.mirantis.com
+    resources:
+      - manifests
+    verbs:
+      - create
+      - delete
+      - get
+      - list
+      - patch
+      - update
+      - watch
+  - apiGroups:
+      - boundless.mirantis.com
+    resources:
+      - manifests/finalizers
+    verbs:
+      - update
+  - apiGroups:
+      - boundless.mirantis.com
+    resources:
+      - manifests/status
+    verbs:
+      - get
+      - patch
+      - update
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
@@ -560,10 +615,10 @@ metadata:
     app.kubernetes.io/part-of: boundless-operator
   name: boundless-operator-metrics-reader
 rules:
-- nonResourceURLs:
-  - /metrics
-  verbs:
-  - get
+  - nonResourceURLs:
+      - /metrics
+    verbs:
+      - get
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
@@ -577,18 +632,18 @@ metadata:
     app.kubernetes.io/part-of: boundless-operator
   name: boundless-operator-proxy-role
 rules:
-- apiGroups:
-  - authentication.k8s.io
-  resources:
-  - tokenreviews
-  verbs:
-  - create
-- apiGroups:
-  - authorization.k8s.io
-  resources:
-  - subjectaccessreviews
-  verbs:
-  - create
+  - apiGroups:
+      - authentication.k8s.io
+    resources:
+      - tokenreviews
+    verbs:
+      - create
+  - apiGroups:
+      - authorization.k8s.io
+    resources:
+      - subjectaccessreviews
+    verbs:
+      - create
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: RoleBinding
@@ -607,9 +662,9 @@ roleRef:
   kind: Role
   name: boundless-operator-leader-election-role
 subjects:
-- kind: ServiceAccount
-  name: boundless-operator-controller-manager
-  namespace: boundless-system
+  - kind: ServiceAccount
+    name: boundless-operator-controller-manager
+    namespace: boundless-system
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
@@ -627,9 +682,9 @@ roleRef:
   kind: ClusterRole
   name: cluster-admin
 subjects:
-- kind: ServiceAccount
-  name: boundless-operator-controller-manager
-  namespace: boundless-system
+  - kind: ServiceAccount
+    name: boundless-operator-controller-manager
+    namespace: boundless-system
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
@@ -647,9 +702,9 @@ roleRef:
   kind: ClusterRole
   name: boundless-operator-manager-role
 subjects:
-- kind: ServiceAccount
-  name: boundless-operator-controller-manager
-  namespace: boundless-system
+  - kind: ServiceAccount
+    name: boundless-operator-controller-manager
+    namespace: boundless-system
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
@@ -667,9 +722,9 @@ roleRef:
   kind: ClusterRole
   name: boundless-operator-proxy-role
 subjects:
-- kind: ServiceAccount
-  name: boundless-operator-controller-manager
-  namespace: boundless-system
+  - kind: ServiceAccount
+    name: boundless-operator-controller-manager
+    namespace: boundless-system
 ---
 apiVersion: v1
 kind: Service
@@ -686,10 +741,10 @@ metadata:
   namespace: boundless-system
 spec:
   ports:
-  - name: https
-    port: 8443
-    protocol: TCP
-    targetPort: https
+    - name: https
+      port: 8443
+      protocol: TCP
+      targetPort: https
   selector:
     control-plane: controller-manager
 ---
@@ -722,74 +777,74 @@ spec:
         nodeAffinity:
           requiredDuringSchedulingIgnoredDuringExecution:
             nodeSelectorTerms:
-            - matchExpressions:
-              - key: kubernetes.io/arch
-                operator: In
-                values:
-                - amd64
-                - arm64
-                - ppc64le
-                - s390x
-              - key: kubernetes.io/os
-                operator: In
-                values:
-                - linux
+              - matchExpressions:
+                  - key: kubernetes.io/arch
+                    operator: In
+                    values:
+                      - amd64
+                      - arm64
+                      - ppc64le
+                      - s390x
+                  - key: kubernetes.io/os
+                    operator: In
+                    values:
+                      - linux
       containers:
-      - args:
-        - --secure-listen-address=0.0.0.0:8443
-        - --upstream=http://127.0.0.1:8080/
-        - --logtostderr=true
-        - --v=0
-        image: gcr.io/kubebuilder/kube-rbac-proxy:v0.13.1
-        name: kube-rbac-proxy
-        ports:
-        - containerPort: 8443
-          name: https
-          protocol: TCP
-        resources:
-          limits:
-            cpu: 500m
-            memory: 128Mi
-          requests:
-            cpu: 5m
-            memory: 64Mi
-        securityContext:
-          allowPrivilegeEscalation: false
-          capabilities:
-            drop:
-            - ALL
-      - args:
-        - --health-probe-bind-address=:8081
-        - --metrics-bind-address=127.0.0.1:8080
-        - --leader-elect
-        command:
-        - /manager
-        image: ghcr.io/mirantis/boundless-operator:0.2.0
-        livenessProbe:
-          httpGet:
-            path: /healthz
-            port: 8081
-          initialDelaySeconds: 15
-          periodSeconds: 20
-        name: manager
-        readinessProbe:
-          httpGet:
-            path: /readyz
-            port: 8081
-          initialDelaySeconds: 5
-          periodSeconds: 10
-        resources:
-          limits:
-            cpu: 500m
-            memory: 128Mi
-          requests:
-            cpu: 10m
-            memory: 64Mi
-        securityContext:
-          allowPrivilegeEscalation: false
-          capabilities:
-            drop:
-            - ALL
+        - args:
+            - --secure-listen-address=0.0.0.0:8443
+            - --upstream=http://127.0.0.1:8080/
+            - --logtostderr=true
+            - --v=0
+          image: gcr.io/kubebuilder/kube-rbac-proxy:v0.13.1
+          name: kube-rbac-proxy
+          ports:
+            - containerPort: 8443
+              name: https
+              protocol: TCP
+          resources:
+            limits:
+              cpu: 500m
+              memory: 128Mi
+            requests:
+              cpu: 5m
+              memory: 64Mi
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+                - ALL
+        - args:
+            - --health-probe-bind-address=:8081
+            - --metrics-bind-address=127.0.0.1:8080
+            - --leader-elect
+          command:
+            - /manager
+          image: ghcr.io/mirantiscontainers/boundless-operator:0.2.1
+          livenessProbe:
+            httpGet:
+              path: /healthz
+              port: 8081
+            initialDelaySeconds: 15
+            periodSeconds: 20
+          name: manager
+          readinessProbe:
+            httpGet:
+              path: /readyz
+              port: 8081
+            initialDelaySeconds: 5
+            periodSeconds: 10
+          resources:
+            limits:
+              cpu: 500m
+              memory: 128Mi
+            requests:
+              cpu: 10m
+              memory: 64Mi
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+                - ALL
       securityContext:
         runAsNonRoot: true
       serviceAccountName: boundless-operator-controller-manager
