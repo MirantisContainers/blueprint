@@ -27,7 +27,7 @@ Refer to the example TF scripts: https://github.com/mirantiscontainers/boundless
 
 #### Install blueprint on `k0s`
 
-1. Download the [example blueprint](https://raw.githubusercontent.com/mirantiscontainers/boundless/main/blueprints/lensappiq/lensappiq-k0s-blueprint.yaml) for Lens AppIQ and save it as `lensappiq-k0s-blueprint.yaml`.
+1. Download the [example blueprint](https://raw.githubusercontent.com/mirantiscontainers/boundless/main/blueprints/k0s-lens-appiq/k0s-lens-appiq.yaml) for Lens AppIQ and save it as `lensappiq-k0s-blueprint.yaml`.
 2. Edit the `lensappiq-k0s-blueprint.yaml` file to set the `spec.kubernetes.infra.hosts` from the output of `terraform output --raw bop_cluster`.
 
    The `spec.kubernetes.infra.hosts` section should look similar to:

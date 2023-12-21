@@ -11,9 +11,7 @@ Bootstrap a single node k0s cluster and install Lens AppIQ.
 
 > Start Lima VM by running `limactl start`. Refer [Lima documentation](https://github.com/lima-vm/lima#getting-started) for details
 
-Download a copy of the [example blueprint](https://raw.githubusercontent.com/mirantiscontainers/boundless/main/blueprints/lensappiq/lensappiq-k0s-lima-blueprint.yaml) for Lens AppIQ and save it as `lensappiq-k0s-lima-blueprint.yaml`.
-
-Bootstrap a single node k0s cluster and install Lens AppIQ:
+Download a copy of the [example Lens AppIQ on k0s blueprint](https://raw.githubusercontent.com/mirantiscontainers/boundless/main/blueprints/k0s-lima-lens-appiq/k0s-lima-lens-appiq.yaml).
 ```shell
 lensappiq-k0s-lima-blueprint.yaml
 ```
