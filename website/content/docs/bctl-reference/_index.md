@@ -4,9 +4,8 @@ draft: false
 weight: 5
 ---
 
-- Install the Boundless CLI binary:
-```shell
-/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/mirantiscontainers/boundless/main/script/install.sh)"
-```
+`bctl` is a command line tool for creating and managing Boundless clusters. It makes interacting with Boundless clusters easy and intuitive.
 
+If you haven't installed `bctl` yet, see the [installation](/docs/install) page.
 
+This section provides details of the various `bctl` commands and their usage.
