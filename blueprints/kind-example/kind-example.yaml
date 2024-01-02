@@ -19,7 +19,7 @@ spec:
               type: NodePort
     addons:
       - name: example-server
-        kind: HelmAddon
+        kind: chart
         enabled: true
         namespace: default
         chart:
