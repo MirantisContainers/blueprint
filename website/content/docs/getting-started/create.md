@@ -21,11 +21,11 @@ Along with `boundless` CLI, you will also need the following tools:
    ```shell
    bctl apply --config blueprint.yaml
    ```
-   
+
 3. Connect to the cluster:
     ```shell
     kubectl cluster-info
     ```
    > `bctl` will create a `kubeconfig` file in the current directory. Use this file to connect to the cluster.
-    
+
 
