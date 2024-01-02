@@ -4,40 +4,37 @@ draft: false
 weight: 2
 ---
 
-#### Prerequisites
+This example shows how to create a k0s cluster in AWS using Terraform and then install Boundless Operator on it.
 
-Along with `boundless` CLI, you will also need the following tools:
+## Prerequisites
+
+Along with `boundless` CLI, you will also need the following tools installed:
 
 * [k0sctl](https://github.com/k0sproject/k0sctl#installation) - required for installing a k0s distribution
 * [terraform](https://developer.hashicorp.com/terraform/tutorials/aws-get-started/install-cli) - for creating VMs in AWS
 
-#### Create virtual machines on AWS
+## Create virtual machines on AWS
 
-There are `terraform` scripts in the `example/` directory that can be used to create machines on AWS.
+Creating virtual machines on AWS can be easily done using the [example Terraform scripts](https://github.com/mirantiscontainers/boundless/tree/main/website/terraform/k0s-in-aws).
 
-Refer to the example TF scripts: https://github.com/mirantiscontainers/boundless-cli/tree/main/example/aws-tf
+After copying the example TF scripts to your local machine, you can create the VMs with the following steps:
 
-1. `cd example/aws-tf`
-2. Create a `terraform.tfvars` file with the content similar to:
+1. Create a `terraform.tfvars` file with the content similar to:
    ```
    cluster_name = "rs-boundless-test"
    controller_count = 1
    worker_count = 1
    cluster_flavor = "m5.large"
    ```
-3. `terraform init`
-4. `terraform apply`
-5. `terraform output --raw bop_cluster > ./blueprint.yaml`
+2. `terraform init`
+3. `terraform apply`
+4. `terraform output --raw bop_cluster > VMs.yaml`
 
-#### Install Boundless Operator on `k0s`
+## Install Boundless Operator on `k0s`
 
-1. Generate a basic blueprint file:
-   ```shell
-   bctl init > blueprint.yaml
-   ```
-   This will create a blueprints file `blueprint.yaml` with k0s specific kubernetes definition and addons that get installed in specific namespace. See a [sample here](#sample-blueprint-for-k0s-cluster)
+1. Download the example blueprint for [creating a k0s cluster in AWS with TF](/blueprints/k0s-in-aws-with-tf/k0s-in-aws-with-tf.yaml)
 
-2. Now, edit the `blueprint.yaml` file to set the `spec.kubernetes.infra.hosts` from the output of `terraform output --raw bop_cluster`.
+2. Edit the `k0s-in-aws-with-tf.yaml` blueprint to set the `spec.kubernetes.infra.hosts` values to those from the `VMs.yaml` file.
 
    The `spec.kubernetes.infra.hosts` section should look similar to:
    ```yaml
@@ -49,31 +46,37 @@ Refer to the example TF scripts: https://github.com/mirantiscontainers/boundless
          hosts:
          - ssh:
              address: 52.91.89.114
-             keyPath: ./example/aws-tf/aws_private.pem
+             keyPath: <TF examples folder>/aws_private.pem
              port: 22
              user: ubuntu
            role: controller
          - ssh:
              address: 10.0.0.2
-             keyPath: ./example/aws-tf/aws_private.pem
+             keyPath: <TF examples folder>/aws_private.pem
              port: 22
              user: ubuntu
            role: worker
    ```
+
 3. Create the cluster:
    ```shell
-   bctl apply --config blueprint.yaml
+   bctl apply -f k0s-in-aws-with-tf.yaml
    ```
-   > Note: `bctl apply` adds kube config context to default location and set it as the _current context_
-4. Update the cluster by modifying `blueprint.yaml` and then running:
+   > Note: `bctl apply` adds kube config context to default location and sets it as the _current context_
+
+4. Update the cluster by modifying `k0s-in-aws-with-tf.yaml` and then running:
    ```shell
-   bctl update --config blueprint.yaml
+   bctl update -f k0s-in-aws-with-tf.yaml
    ```
-5. Delete the cluster:
+
+## Cleanup
+
+Delete the cluster:
    ```shell
-   bctl reset --config blueprint.yaml
+   bctl reset -f k0s-in-aws-with-tf.yaml
    ```
-6. Delete virtual machines:
+
+Delete virtual machines by changing to the example TF folder and running:
    ```bash
-   cd example/aws-tf
    terraform destroy --auto-approve
+   ```
