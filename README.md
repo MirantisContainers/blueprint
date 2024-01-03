@@ -10,15 +10,15 @@ Take a look at the [official documentation](https://mirantiscontainers.github.io
 
 ### Installing Boundless CLI
 
-The installation process can be found [here](https://mirantiscontainers.github.io/boundless/installation/). Once `bctl` is installed on your system, it will be your main way of interacting with Boundless and take care of pulling the boundless image and setting up a cluster.
+The installation process can be found [here](https://mirantiscontainers.github.io/boundless/docs/install/). Once `bctl` is installed on your system, it will be your main way of interacting with Boundless and take care of pulling the boundless image and setting up a cluster.
 
 ### Quick Start
 
-The [quick start guide](https://mirantiscontainers.github.io/boundless/quickstart/) will walk you through the process of creating a very basic cluster on your local machine.
+The [quick start guide](https://mirantiscontainers.github.io/boundless/docs/getting-started/) will walk you through the process of creating a very basic cluster on your local machine.
 
 ### Example Blueprints
 
-The [examples](https://mirantiscontainers.github.io/boundless/examples/) section contains a number of examples that you can try out. Each example provides information on what the example does and how to run it. These are a great way to get started with a more complex cluster.
+The [examples](https://mirantiscontainers.github.io/boundless/docs/examples/) section contains a number of examples that you can try out. Each example provides information on what the example does and how to run it. These are a great way to get started with a more complex cluster.
 
 ## Contributing to the docs
 
