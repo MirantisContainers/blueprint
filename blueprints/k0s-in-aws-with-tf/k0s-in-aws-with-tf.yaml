@@ -10,20 +10,20 @@ spec:
       hosts:
         - ssh:
             address: 52.91.89.114
-            keyPath: ./example/aws-tf/aws_private.pem
+            keyPath: ./aws_private.pem
             port: 22
             user: ubuntu
           role: controller
         - ssh:
             address: 10.0.0.2
-            keyPath: ./example/aws-tf/aws_private.pem
+            keyPath: ./aws_private.pem
             port: 22
             user: ubuntu
           role: worker
   components:
     addons:
       - name: example-server
-        kind: HelmAddon
+        kind: chart
         enabled: true
         namespace: default
         chart:
