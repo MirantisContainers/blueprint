@@ -1,7 +1,7 @@
 apiVersion: boundless.mirantis.com/v1alpha1
 kind: Blueprint
 metadata:
-  name: kind-cluster
+  name: kind-example
 spec:
   kubernetes:
     provider: kind
@@ -19,7 +19,7 @@ spec:
               type: NodePort
     addons:
       - name: example-server
-        kind: chart
+        kind: HelmAddon
         enabled: true
         namespace: default
         chart:
