@@ -32,6 +32,11 @@ region = "us-east-1"
 2. `terraform init`
 3. `terraform apply -auto-approve`
 4. `terraform output --raw k0s_cluster > VMs.yaml`
+5. Confirm that the AWS EC2 VMs are spun up:
+```
+aws ec2 describe-instances --region $(grep "region" terraform.tfvars | awk -F' *= *' '{print $2}' | tr -d '"')
+```
+6. Alternatively, navigate to the AWS EC2 page and select the appropriate region from the dropdown in the top right of the page. Additional details regarding the AWS VMs can be found there.
 
 #### Install Boundless Operator on `k0s`
 
@@ -75,6 +80,9 @@ bctl update -f k0s-in-aws-with-tf.yaml
 5. View the status of the cluster's Kubernetes pods:
 ```
 kubectl get pods --all-namespaces
+```
+Output should be similar to:
+```
 NAMESPACE          NAME                                                     READY   STATUS              RESTARTS   AGE
 boundless-system   boundless-operator-controller-manager-677b86bdc4-rtjwb   1/2     Running             0          25s
 boundless-system   helm-controller-79cc59c76b-vsr2v                         1/1     Running             0          5s
@@ -89,10 +97,6 @@ kube-system        metrics-server-7f86dff975-gs26h                          0/1 
 #### Accessing the cluster
 
 The example app addon can now be accessed through the `http://<controller-node-ip>:6443` URL.
-
-##### Managing AWS VMs
-
-Navigate the AWS's EC2 page and select the appropriate region. Additional details regarding the AWS VMs can be found there.
 
 #### Cleanup
 
