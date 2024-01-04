@@ -34,7 +34,7 @@ Refer to the [example Terraform scripts](https://github.com/mirantiscontainers/b
 
 Download the [example blueprint](https://raw.githubusercontent.com/mirantiscontainers/boundless/main/blueprints/k0s-lens-appiq/k0s-lens-appiq.yaml) for Lens AppIQ.
 
-Modify the blueprint so that the `spec.kubernetes.infra.hosts` section matches your AWS VMs` IP address, username, SSH port, and SSH credentials. The values can be passed as environment variables or replaced with your own values. For example, the hosts section should match the output from `terraform output --raw bop_cluster`. For example:
+Modify the blueprint so that the `spec.kubernetes.infra.hosts` section matches your AWS VMs' IP address, username, SSH port, and SSH credentials. The values can be passed as environment variables or replaced with your own values. For example, the hosts section should match the output from `terraform output --raw bop_cluster`. For example:
 
 ```yaml
 spec:
