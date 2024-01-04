@@ -1,0 +1,25 @@
+apiVersion: bctl.mirantis.com/v1alpha1
+kind: Blueprint
+metadata:
+  name: k0s-example
+spec:
+  kubernetes:
+    provider: k0s
+    version: v1.28.3+k0s.0
+    infra:
+      hosts:
+      - localhost:
+          enabled: true
+        role: single
+    addons:
+      - name: example-server
+        kind: chart
+        enabled: true
+        namespace: default
+        chart:
+          name: nginx
+          repo: https://charts.bitnami.com/bitnami
+          version: 15.1.1
+          values: |
+            "service":
+              "type": "ClusterIP"

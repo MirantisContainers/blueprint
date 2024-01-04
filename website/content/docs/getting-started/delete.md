@@ -4,17 +4,10 @@ draft: false
 weight: 3
 ---
 
-#### Delete a cluster
-
 Deleting a cluster is easily done in a single command:
 
 ```shell
-bctl reset --config blueprint.yaml
+bctl reset --config k0s-example.yaml
 ```
 
-You can see that the cluster no longer exists by running:
-
-```shell
-kind get clusters
-```
-And verifying that your cluster is no longer listed.
+This will remove all of the resources created by the blueprint but leave the k0s cluster intact.
