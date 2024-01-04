@@ -27,6 +27,7 @@ cluster_name = "k0s-cluster"
 controller_count = 1
 worker_count = 1
 cluster_flavor = "m5.large"
+region = "us-east-1"
 ```
 2. `terraform init`
 3. `terraform apply -auto-approve`
@@ -71,9 +72,27 @@ bctl apply -f k0s-in-aws-with-tf.yaml
 bctl update -f k0s-in-aws-with-tf.yaml
 ```
 
+5. View the status of the cluster's Kubernetes pods:
+```
+kubectl get pods --all-namespaces
+NAMESPACE          NAME                                                     READY   STATUS              RESTARTS   AGE
+boundless-system   boundless-operator-controller-manager-677b86bdc4-rtjwb   1/2     Running             0          25s
+boundless-system   helm-controller-79cc59c76b-vsr2v                         1/1     Running             0          5s
+default            helm-install-nginx-mj2qt                                 0/1     ContainerCreating   0          3s
+kube-system        coredns-878bb57ff-d4j99                                  1/1     Running             0          40s
+kube-system        konnectivity-agent-jkz62                                 1/1     Running             0          39s
+kube-system        kube-proxy-22rxj                                         1/1     Running             0          39s
+kube-system        kube-router-mrbks                                        1/1     Running             0          39s
+kube-system        metrics-server-7f86dff975-gs26h                          0/1     Running             0          40s
+```
+
 #### Accessing the cluster
 
 The example app addon can now be accessed through the `http://<controller-node-ip>:6443` URL.
+
+##### Managing AWS VMs
+
+Navigate the AWS's EC2 page and select the appropriate region. Additional details regarding the AWS VMs can be found there.
 
 #### Cleanup
 
