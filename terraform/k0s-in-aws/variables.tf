@@ -17,3 +17,8 @@ variable "cluster_flavor" {
   type    = string
   default = "t3.large"
 }
+
+variable "region" {
+  type    = string
+  default = "us-east-1"  
+}

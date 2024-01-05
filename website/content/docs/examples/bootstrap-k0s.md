@@ -27,10 +27,18 @@ cluster_name = "k0s-cluster"
 controller_count = 1
 worker_count = 1
 cluster_flavor = "m5.large"
+region = "us-east-1"
 ```
 2. `terraform init`
 3. `terraform apply -auto-approve`
 4. `terraform output --raw k0s_cluster > VMs.yaml`
+
+> To get detailed information about the created VMs, use the AWS CLI:
+> ```
+> aws ec2 describe-instances --region $(grep "region" terraform.tfvars | awk -F' *= *' '{print $2}' | tr -d '"')
+> ```
+> Alternatively, for a visual overview:   
+> Go to the AWS EC2 page. Select the desired region from the dropdown menu at the top-right corner.
 
 #### Install Boundless Operator on `k0s`
 
@@ -69,6 +77,23 @@ bctl apply -f k0s-in-aws-with-tf.yaml
 4. Update the cluster by modifying `k0s-in-aws-with-tf.yaml` and then running:
 ```shell
 bctl update -f k0s-in-aws-with-tf.yaml
+```
+
+5. Monitor the status of the cluster's Kubernetes pods with:
+```
+watch -n 1 kubectl get pods --all-namespaces
+```
+It will take a few moments before the pods are ready:
+```
+NAMESPACE          NAME                                                     READY   STATUS              RESTARTS   AGE
+boundless-system   boundless-operator-controller-manager-677b86bdc4-rtjwb   1/2     Running             0          25s
+boundless-system   helm-controller-79cc59c76b-vsr2v                         1/1     Running             0          5s
+default            helm-install-nginx-mj2qt                                 0/1     ContainerCreating   0          3s
+kube-system        coredns-878bb57ff-d4j99                                  1/1     Running             0          40s
+kube-system        konnectivity-agent-jkz62                                 1/1     Running             0          39s
+kube-system        kube-proxy-22rxj                                         1/1     Running             0          39s
+kube-system        kube-router-mrbks                                        1/1     Running             0          39s
+kube-system        metrics-server-7f86dff975-gs26h                          0/1     Running             0          40s
 ```
 
 #### Accessing the cluster
