@@ -11,7 +11,7 @@ weight: 1
 Installing the latest version of Boundless is as simple as running the following command:
 
 ```shell
-/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/mirantiscontainers/boundless/main/script/install.sh)"
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/mirantiscontainers/boundless/main/scripts/install.sh)"
 ```
 The install script will download the latest version of the boundless cli, verify it with the checksum, and install it to `/usr/local/bin/bctl`.
 
@@ -20,7 +20,7 @@ The install script will download the latest version of the boundless cli, verify
 If you would like to install a specific version of Boundless, you can specify the version as an environment var for the install script:
 
 ```shell
-/bin/bash -c "VERSION=<desired version> $(curl -fsSL https://raw.githubusercontent.com/mirantiscontainers/boundless/main/script/install.sh)"
+/bin/bash -c "VERSION=<desired version> $(curl -fsSL https://raw.githubusercontent.com/mirantiscontainers/boundless/main/scripts/install.sh)"
 ```
 
 You can find the different releases on the [releases page](https://github.com/mirantiscontainers/boundless/releases).
@@ -57,4 +57,4 @@ rm /usr/local/bin/bctl
 
 ### Getting started
 
-Now that you have boundless installed, check out the [getting started guide](/docs/getting-started) to walk through creating your first cluster or go straight to the [examples](/docs/examples) section to see some example blueprints.
+Now that you have boundless installed, check out the [getting started guide](../getting-started) to walk through creating your first cluster or go straight to the [examples](docs/examples) section to see some example blueprints.
