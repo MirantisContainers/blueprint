@@ -32,11 +32,13 @@ region = "us-east-1"
 2. `terraform init`
 3. `terraform apply -auto-approve`
 4. `terraform output --raw k0s_cluster > VMs.yaml`
-5. Confirm that the AWS EC2 VMs are spun up:
-```
-aws ec2 describe-instances --region $(grep "region" terraform.tfvars | awk -F' *= *' '{print $2}' | tr -d '"')
-```
-6. Alternatively, navigate to the AWS EC2 page and select the appropriate region from the dropdown in the top right of the page. Additional details regarding the AWS VMs can be found there.
+
+> To get detailed information about the created VMs, use the AWS CLI:
+> ```
+> aws ec2 describe-instances --region $(grep "region" terraform.tfvars | awk -F' *= *' '{print $2}' | tr -d '"')
+> ```
+> Alternatively, for a visual overview:   
+> Go to the AWS EC2 page. Select the desired region from the dropdown menu at the top-right corner.
 
 #### Install Boundless Operator on `k0s`
 
@@ -77,11 +79,11 @@ bctl apply -f k0s-in-aws-with-tf.yaml
 bctl update -f k0s-in-aws-with-tf.yaml
 ```
 
-5. View the status of the cluster's Kubernetes pods:
+5. Monitor the status of the cluster's Kubernetes pods with:
 ```
-kubectl get pods --all-namespaces
+watch -n 1 kubectl get pods --all-namespaces
 ```
-Output should be similar to:
+It will take a few moments before the pods are ready:
 ```
 NAMESPACE          NAME                                                     READY   STATUS              RESTARTS   AGE
 boundless-system   boundless-operator-controller-manager-677b86bdc4-rtjwb   1/2     Running             0          25s
