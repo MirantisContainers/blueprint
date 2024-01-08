@@ -1,7 +1,7 @@
 ---
-title: "Create a k0s cluster in AWS using Terraform"
+title: "Getting Started with k0s and Terraform"
 draft: false
-weight: 2
+weight: 4
 ---
 
 This example shows how to create a k0s cluster in AWS using Terraform and then install Boundless Operator on it.
@@ -37,7 +37,7 @@ region = "us-east-1"
 > ```
 > aws ec2 describe-instances --region $(grep "region" terraform.tfvars | awk -F' *= *' '{print $2}' | tr -d '"')
 > ```
-> Alternatively, for a visual overview:   
+> Alternatively, for a visual overview:
 > Go to the AWS EC2 page. Select the desired region from the dropdown menu at the top-right corner.
 
 #### Install Boundless Operator on `k0s`
