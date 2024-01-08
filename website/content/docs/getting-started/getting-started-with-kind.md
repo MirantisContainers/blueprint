@@ -1,5 +1,5 @@
 ---
-title: "Bootstrap a Kind cluster"
+title: "Getting started with Kind"
 draft: false
 weight: 2
 ---

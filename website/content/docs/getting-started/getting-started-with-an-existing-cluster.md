@@ -1,5 +1,5 @@
 ---
-title: "Use boundless on an existing cluster"
+title: "Getting Started with an existing cluster"
 draft: false
 weight: 3
 ---
