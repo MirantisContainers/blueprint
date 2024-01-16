@@ -1,5 +1,5 @@
 ---
-title: "Lens AppIQ with k0s, terraform, and AWS"
+title: "Lens AppIQ with k0s, Terraform, and AWS"
 draft: false
 ---
 
@@ -7,98 +7,105 @@ Bootstrap a k0s cluster in AWs with terraform and install Lens AppIQ.
 
 #### Pre-requisite
 
-* SSH Access to either one (single node) or two VMs (one controller and one worker)
+Along with `boundless` CLI, the following tools will also be required:
 
-For AWS there are `terraform` scripts in the `example/` directory that can be used to create machines on AWS.
+- [AWS](https://aws.amazon.com/cli/) - used to create VMs for running the cluster
+- [terraform](https://www.terraform.io/) - used setup VMs in AWS
+- [k0sctl](https://github.com/k0sproject/k0sctl#installation) - required for installing a k0s distribution
+- [kubectl](https://kubernetes.io/docs/tasks/tools/install-kubectl/) - used to forward ports to the cluster
 
-Refer to the example TF scripts: https://github.com/mirantiscontainers/boundless-cli/tree/main/example/aws-tf
+#### Setting up VMs in AWS
 
-1. `cd example/aws-tf`
-2. Create a `terraform.tfvars` file with the content similar to:
+Refer to the [example Terraform scripts](https://github.com/mirantiscontainers/boundless/tree/main/terraform/k0s-in-aws) for creating VMs in AWS.
+
+1. Change to the directory containing the Terraform scripts.
+2. Copy the `terraform.tfvars.example` to `terraform.tfvars` and change the content to be similar to:
    ```
-   cluster_name = "rs-boundless-test"
+   cluster_name = "lens-appiq-boundless"
    controller_count = 1
    worker_count = 1
    cluster_flavor = "m5.large"
    ```
 3. `terraform init`
 4. `terraform apply`
-5. `terraform output --raw bop_cluster > ./blueprint.yaml`
+5. `terraform output --raw bop_cluster > ./VMs.yaml`
 
-#### Install blueprint on `k0s`
+#### Setting up the blueprint
 
-1. Download the [example blueprint](https://raw.githubusercontent.com/mirantiscontainers/boundless/main/blueprints/k0s-lens-appiq/k0s-lens-appiq.yaml) for Lens AppIQ and save it as `lensappiq-k0s-blueprint.yaml`.
-2. Edit the `lensappiq-k0s-blueprint.yaml` file to set the `spec.kubernetes.infra.hosts` from the output of `terraform output --raw bop_cluster`.
+Download the [example blueprint](https://raw.githubusercontent.com/mirantiscontainers/boundless/main/blueprints/k0s-lens-appiq/k0s-lens-appiq.yaml) for Lens AppIQ.
 
-   The `spec.kubernetes.infra.hosts` section should look similar to:
-   ```yaml
-   spec:
-     kubernetes:
-       provider: k0s
-       version: 1.27.4+k0s.0
-       infra:
-         hosts:
-         - ssh:
-             address: 52.91.89.114
-             keyPath: ./example/aws-tf/aws_private.pem
-             port: 22
-             user: ubuntu
-           role: controller
-         - ssh:
-             address: 10.0.0.2
-             keyPath: ./example/aws-tf/aws_private.pem
-             port: 22
-             user: ubuntu
-           role: worker
-   ```
+Modify the blueprint so that the `spec.kubernetes.infra.hosts` section matches your AWS VMs' IP address, username, SSH port, and SSH credentials. The values can be passed as environment variables or replaced with your own values. For example, the hosts section should match the output from `terraform output --raw bop_cluster`. For example:
 
-> For Single node configuration (such as when running for testing on Lima VM on Mac or a QEMU VM on linux), remove worker ssh entry and change `role: controller` to `role: single`
-
-2. Bootstrap k0s on provided VMs and install Lens AppIQ
-   Bootstrap a controller and worker k0s nodes and install Lens AppIQ:
-   ```shell
-   bctl apply --config lensappiq-k0s-blueprint.yaml
-   ```
-# Access Lens AppIQ
-## Install Lens AppIQ CLI
-See [Lens AppIQ CLI installation guide](https://learn.lenscloud.io/docs/downloading-the-lensapps-client) for details.
-
-```shell
-curl -s https://storage.googleapis.com/shipa-client/install-cloud-cli.sh | bash
+```yaml
+spec:
+  kubernetes:
+    provider: k0s
+    version: 1.27.4+k0s.0
+    infra:
+      hosts:
+        - ssh:
+            address: 52.91.89.114
+            keyPath: ./example/aws-tf/aws_private.pem
+            port: 22
+            user: ubuntu
+          role: controller
+        - ssh:
+            address: 10.0.0.2
+            keyPath: ./example/aws-tf/aws_private.pem
+            port: 22
+            user: ubuntu
+          role: worker
 ```
 
-## Setup route to access Lens AppIQ API
-If Lens AppIQ serviceType is ClusterIP, you need to setup route to the nginx-ingress cluster ip:
+And the `spec.components.addons.chart.values.auth` section by either setting the environment variables or replacing the values with your own:
 
-**Linux**
-```shell
-sudo ip route add $(kubectl get service shipa-ingress-nginx -n shipa-system -o jsonpath='{.spec.clusterIP}') via $(docker container inspect lens-appiq-cluster-control-plane --format '{{ .NetworkSettings.Networks.kind.IPAddress }}')
+> The password needs to contain letters, numbers, and special characters. An invalid password will cause the installation to fail silently.
+
+```yaml
+spec:
+  components:
+    addons:
+      chart:
+        values: |
+          auth:
+            adminUser: "admin" # Required. This should be changed
+            adminPassword: "Pass123$" # Required. This should be changed. It must include letters, numbers, and symbols
 ```
 
-**Mac**
-```shell
-sudo route -n add -net $(kubectl get service shipa-ingress-nginx -n shipa-system -o jsonpath='{.spec.clusterIP}')  $(docker container inspect lens-appiq-cluster-control-plane --format '{{ .NetworkSettings.Networks.kind.IPAddress }}')
-```
-## Login to Lens AppIQ
+> Usernames and passwords are sensitive information that should not be stored in the blueprint. They should be passed as environment variables and replaced with your own values. See [Using Variables](/docs/blueprint-reference/variables/) for more information.
 
-Setup Lens AppIQ Target
-```shell
-lapps target add laiq $(kubectl get service shipa-ingress-nginx -n shipa-system -o jsonpath='{.spec.clusterIP}')
-```
-Login using `$LAIQ_USER` and `$LAIQ_PASSWORD`
-```shell
-lapps login $LAIQ_USER
-```
+#### Apply the blueprint
 
-## Open Lens AppIQ Dashboard in the browser
-```shell
-lapps dashboard open
-```
-
-# Delete Lens AppIQ installation
+Apply the blueprint using using `bctl`:
 
 ```shell
-bctl delete -c lensappiq-kind-blueprint.yaml
-# Team workaround
-delete helmcharts.helm.cattle.io -n shipa-system shipa
+bctl apply -f k0s-lens-appiq.yaml
 ```
+
+It will take a few moments before the LensAppIQ pods are ready. You can monitor the progress with:
+
+```shell
+watch -n 1 kubectl get pods -n shipa-system
+```
+
+#### Access the Lens AppIQ UI
+
+Use `kubectl` to temporarily forward ports to the cluster. This will need to be left running in the background:
+
+```bash
+kubectl -n shipa-system port-forward service/shipa-ingress-nginx 8080:80
+```
+
+Open a browser and navigate to `http://localhost:8080`. You should see the Lens AppIQ UI.
+
+From here, LensAppIQ can be configured using the [official LensAppIQ documentation](https://learn.lenscloud.io/docs/intro-to-lensappiq).
+
+#### Cleanup
+
+To remove the cluster, run:
+
+```shell
+bctl reset -f k0s-lens-appiq.yaml
+```
+
+This will remove all resources created by the blueprint but leave the k0s cluster.

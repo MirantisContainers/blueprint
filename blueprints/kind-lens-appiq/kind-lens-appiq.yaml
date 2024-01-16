@@ -17,8 +17,8 @@ spec:
           version: 0.1.0
           values: |
             auth:
-              adminUser: "$LAIQ_USER" # Required, must be set
-              adminPassword: "$LAIQ_PASSWORD" # Required, must be set
+              adminUser: "admin" # Required. This should be changed
+              adminPassword: "Pass123$" # Required. This should be changed. It must include letters, numbers, and symbols
             shipaCluster:
               ingress:
                 # SERVICE_TYPE can be ClusterIP or NodePort or LoadBalancer (default)
