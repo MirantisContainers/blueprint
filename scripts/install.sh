@@ -2,6 +2,16 @@
 INSTALL_DIR=/usr/local/bin
 REPO_URL="https://github.com/mirantiscontainers/boundless"
 
+# Check if there is sufficient permission for the binary download to succeed later in the script
+touch testfile
+if [[ $? -ne 0 ]]
+then
+  echo "Unable to write to directory: $(pwd)"
+  echo "Change to a directory with sufficient permissions and retry."
+  exit 1
+fi
+rm testfile
+
 # Determine the version
 if [[ ! -n $VERSION ]]
 then
