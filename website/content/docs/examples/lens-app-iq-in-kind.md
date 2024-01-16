@@ -9,14 +9,14 @@ This blueprint bootstraps a kind cluster and installs Lens AppIQ. This is only a
 
 Along with `boundless` CLI, the following tools will also be required:
 
-* [kind](https://kind.sigs.k8s.io/docs/user/quick-start/) - required for installing a kind distribution
-* [kubectl](https://kubernetes.io/docs/tasks/tools/install-kubectl/) - used to forward ports to the cluster
+- [kind](https://kind.sigs.k8s.io/docs/user/quick-start/) - required for installing a kind distribution
+- [kubectl](https://kubernetes.io/docs/tasks/tools/install-kubectl/) - used to forward ports to the cluster
 
 #### Setting up the blueprint
 
 The [example blueprint](https://raw.githubusercontent.com/mirantiscontainers/boundless/main/blueprints/kind-lens-appiq/kind-lens-appiq.yaml) for Lens AppIQ will bootstrap a `kind` cluster, install `Boundless Operator`, and install LensAppIQ as an addon in the cluster.
 
-The blueprint should be modified for your setup. Specifically, the admin user and password should be changed to more secure values.  Change these in the `spec.components.addons.chart.values.auth` section by either setting the environment variables or replacing the values with your own:
+The blueprint should be modified for your setup. Specifically, the admin user and password should be changed to more secure values. Change these in the `spec.components.addons.chart.values.auth` section by either setting the environment variables or replacing the values with your own:
 
 > The password needs to contain letters, numbers, and special characters. An invalid password will cause the installation to fail silently.
 
@@ -30,6 +30,8 @@ spec:
             adminUser: "admin" # Required. This should be changed
             adminPassword: "Pass123$" # Required. This should be changed. It must include letters, numbers, and symbols
 ```
+
+> Usernames and passwords are sensitive information that should not be stored in the blueprint. They should be passed as environment variables and replaced with your own values. See [Using Variables](/docs/blueprint-reference/variables/) for more information.
 
 #### Apply the blueprint
 
@@ -75,7 +77,7 @@ watch -n 1 kubectl get pods -n shipa-system
 
 Use `kubectl` to temporarily forward ports to the cluster. This will need to be left running in the background:
 
-``` bash
+```bash
 kubectl -n shipa-system port-forward service/shipa-ingress-nginx 8080:80
 ```
 

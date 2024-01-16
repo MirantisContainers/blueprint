@@ -9,10 +9,10 @@ Bootstrap a k0s cluster in AWs with terraform and install Lens AppIQ.
 
 Along with `boundless` CLI, the following tools will also be required:
 
-* [AWS](https://aws.amazon.com/cli/) - used to create VMs for running the cluster
-* [terraform](https://www.terraform.io/) - used setup VMs in AWS
-* [k0sctl](https://github.com/k0sproject/k0sctl#installation) - required for installing a k0s distribution
-* [kubectl](https://kubernetes.io/docs/tasks/tools/install-kubectl/) - used to forward ports to the cluster
+- [AWS](https://aws.amazon.com/cli/) - used to create VMs for running the cluster
+- [terraform](https://www.terraform.io/) - used setup VMs in AWS
+- [k0sctl](https://github.com/k0sproject/k0sctl#installation) - required for installing a k0s distribution
+- [kubectl](https://kubernetes.io/docs/tasks/tools/install-kubectl/) - used to forward ports to the cluster
 
 #### Setting up VMs in AWS
 
@@ -43,18 +43,18 @@ spec:
     version: 1.27.4+k0s.0
     infra:
       hosts:
-      - ssh:
-          address: 52.91.89.114
-          keyPath: ./example/aws-tf/aws_private.pem
-          port: 22
-          user: ubuntu
-        role: controller
-      - ssh:
-          address: 10.0.0.2
-          keyPath: ./example/aws-tf/aws_private.pem
-          port: 22
-          user: ubuntu
-        role: worker
+        - ssh:
+            address: 52.91.89.114
+            keyPath: ./example/aws-tf/aws_private.pem
+            port: 22
+            user: ubuntu
+          role: controller
+        - ssh:
+            address: 10.0.0.2
+            keyPath: ./example/aws-tf/aws_private.pem
+            port: 22
+            user: ubuntu
+          role: worker
 ```
 
 And the `spec.components.addons.chart.values.auth` section by either setting the environment variables or replacing the values with your own:
@@ -71,6 +71,8 @@ spec:
             adminUser: "admin" # Required. This should be changed
             adminPassword: "Pass123$" # Required. This should be changed. It must include letters, numbers, and symbols
 ```
+
+> Usernames and passwords are sensitive information that should not be stored in the blueprint. They should be passed as environment variables and replaced with your own values. See [Using Variables](/docs/blueprint-reference/variables/) for more information.
 
 #### Apply the blueprint
 
@@ -90,7 +92,7 @@ watch -n 1 kubectl get pods -n shipa-system
 
 Use `kubectl` to temporarily forward ports to the cluster. This will need to be left running in the background:
 
-``` bash
+```bash
 kubectl -n shipa-system port-forward service/shipa-ingress-nginx 8080:80
 ```
 

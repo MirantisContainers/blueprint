@@ -7,9 +7,8 @@ This example shows how use boundless to create a single node k0s cluster using a
 
 Popular VMs include
 
-* [lima VM](https://github.com/lima-vm/lima)
-* [multipass VM](https://multipass.run/)
-
+- [lima VM](https://github.com/lima-vm/lima)
+- [multipass VM](https://multipass.run/)
 
 Any type of VM can be used to run boundless. If you choose to use another type of VM, you will need to locate the VM's IP address, username, SSH port, and SSH credentials. This example uses a lima VM.
 
@@ -17,8 +16,8 @@ Any type of VM can be used to run boundless. If you choose to use another type o
 
 Along with `boundless` CLI, the following tools will also be required:
 
-* [k0sctl](https://github.com/k0sproject/k0sctl#installation) - required for installing a k0s distribution
-* [kubectl](https://kubernetes.io/docs/tasks/tools/install-kubectl/) - used to forward ports to the cluster
+- [k0sctl](https://github.com/k0sproject/k0sctl#installation) - required for installing a k0s distribution
+- [kubectl](https://kubernetes.io/docs/tasks/tools/install-kubectl/) - used to forward ports to the cluster
 
 #### Creating the VM
 
@@ -54,6 +53,8 @@ spec:
             adminUser: "admin" # Required. This should be changed
             adminPassword: "Pass123$" # Required. This should be changed. It must include letters, numbers, and symbols
 ```
+
+> Usernames and passwords are sensitive information that should not be stored in the blueprint. They should be passed as environment variables and replaced with your own values. See [Using Variables](/docs/blueprint-reference/variables/) for more information.
 
 #### Apply the blueprint
 
@@ -123,7 +124,7 @@ watch -n 1 kubectl get pods -n shipa-system
 
 Use `kubectl` to temporarily forward ports to the cluster. This will need to be left running in the background:
 
-``` bash
+```bash
 kubectl -n shipa-system port-forward service/shipa-ingress-nginx 8080:80
 ```
 
