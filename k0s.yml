@@ -1,0 +1,46 @@
+apiVersion: boundless.mirantis.com/v1alpha1
+kind: Blueprint
+metadata:
+  name: k0s-cluster
+spec:
+  kubernetes:
+    provider: k0s
+    version: 1.28.5+k0s.0
+    infra:
+      hosts:
+      - ssh:
+          address: 10.0.0.1
+          keyPath: ""
+          port: 22
+          user: root
+        role: controller
+      - ssh:
+          address: 10.0.0.2
+          keyPath: ""
+          port: 22
+          user: root
+        role: worker
+  components:
+    core:
+      ingress:
+        enabled: true
+        provider: ingress-nginx
+        config:
+          controller:
+            service:
+              nodePorts:
+                http: 30000
+                https: 30001
+              type: NodePort
+    addons:
+    - name: example-server
+      kind: chart
+      enabled: true
+      namespace: default
+      chart:
+        name: nginx
+        repo: https://charts.bitnami.com/bitnami
+        version: 15.1.1
+        values: |
+          "service":
+            "type": "ClusterIP"
