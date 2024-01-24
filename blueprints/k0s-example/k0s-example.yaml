@@ -5,12 +5,13 @@ metadata:
 spec:
   kubernetes:
     provider: k0s
-    version: v1.28.3+k0s.0
+    version: 1.28.3+k0s.0
     infra:
       hosts:
       - localhost:
           enabled: true
         role: single
+  components:
     addons:
       - name: example-server
         kind: chart
