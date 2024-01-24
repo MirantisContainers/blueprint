@@ -9,7 +9,7 @@ weight: 1
 The following list shows the order of precedence for kubeconfig files used by `bctl`:
 
 1. Provided to `bctl` using the `--kubeconfig` flag
-2. Add to the blueprint under `kubernetes.kubeconfig`
+2. Added to the blueprint under `kubernetes.kubeconfig`
 
 ```yaml
 kubernetes:

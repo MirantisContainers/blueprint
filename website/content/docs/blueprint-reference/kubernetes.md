@@ -74,7 +74,7 @@ spec:
 
 > Using an unsupported kubernetes provider expects that the underlying cluster is being managed outside of boundless.
 
-Specifying an `existing` provider will install boundless and the specified addons on an existing kubernetes cluster. This is the default value that will be used if not `kubernetes` section is provided. The following is an example of how to specify an `existing` cluster:
+Specifying an `existing` provider will install boundless and the specified addons on an existing kubernetes cluster. This is the default value that will be used if no `kubernetes` section is provided in the blueprint. The following is an example of how to specify an `existing` cluster:
 
 ```yaml
 apiVersion: boundless.mirantis.com/v1alpha1
