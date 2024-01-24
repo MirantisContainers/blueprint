@@ -4,11 +4,11 @@ draft: false
 weight: 11
 ---
 
-The `kubernetes` field is used to specify the kubernetes provider and version. This field is required and must be set for a valid configuration.
+The `kubernetes` field is used to specify the kubernetes provider and version. This field is optional and not specifying it will result in boundless defaulting to the `existing` provider.
 
 There are currently two kubernetes providers that are officially supported by boundless: `kind` and `k0s`.
 
-An `existing` provider can also be used to specify an unsupported kubernetes provider. Using this provider will install boundless and the specified addons on an existing kubernetes cluster but no cluster management will be possible.
+An `existing` provider can also be used to specify an unsupported kubernetes provider. Using this provider will install boundless and the specified addons on an existing kubernetes cluster but no cluster management will be possible. If a kubeconfig is not specified, boundless will fail to find the existing cluster.
 
 > Using an unsupported kubernetes provider expects that the underlying cluster is being managed outside of boundless.
 
@@ -74,7 +74,7 @@ spec:
 
 > Using an unsupported kubernetes provider expects that the underlying cluster is being managed outside of boundless.
 
-Specifying an `existing` provider will install boundless and the specified addons on an existing kubernetes cluster. The following is an example of how to specify an `existing` cluster:
+Specifying an `existing` provider will install boundless and the specified addons on an existing kubernetes cluster. This is the default value that will be used if not `kubernetes` section is provided. The following is an example of how to specify an `existing` cluster:
 
 ```yaml
 apiVersion: boundless.mirantis.com/v1alpha1
@@ -87,7 +87,7 @@ spec:
     kubeConfig: /home/user/.kube/config
 ```
 
-> The `kubeConfig` will be overridden by the `bctl --kubeconfig` flag, `KUBECONFIG` environment variable, or the `--context` flag
+> Read more about kubeconfig precedence in the ../kubeconfig section.
 
 | Field      |                                      Description                                       |
 | :--------- | :------------------------------------------------------------------------------------: |
