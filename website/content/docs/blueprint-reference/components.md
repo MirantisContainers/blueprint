@@ -95,7 +95,7 @@ spec:
         kind: manifest
         enabled: true
         manifest:
-          url: "https://raw.githubusercontent.com/kubernetes/website/main/content/en/examples/admin/namespace-dev.yaml"
+          url: "https://raw.githubusercontent.com/metallb/metallb/v0.14.3/config/manifests/metallb-native.yaml"
 ```
 
 | Field        |               Description               |
