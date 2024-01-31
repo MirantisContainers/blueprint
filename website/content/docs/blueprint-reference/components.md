@@ -42,8 +42,9 @@ Core components are components that are typically required for a cluster to func
 
 ## Addons
 
-Addons allow you to easily install new software on your cluster. They are defined as an array in the `spec.components.addons` section of a blueprint.
-There are two types of addons: [Helm Charts](#helm-charts) and [Manifests](#manifests).
+Addons allow you to easily install new software on your cluster. There are two types of addons: [Helm Charts](#helm-charts) and [Manifests](#manifests). 
+They are defined as an array in the `spec.components.addons` section of a blueprint. Please refer to this [example](#example) that uses both of these types in addons section.
+
 
 | Field     |                            Description                            |
 | :-------- | :---------------------------------------------------------------: |
@@ -102,3 +103,29 @@ spec:
 | :----------- | :-------------------------------------: |
 | manifest     |      Used to specify manifest info      |
 | manifest.url | Used to specify the url of the manifest |
+
+### Example
+
+An example blueprint that uses both [Helm Charts](#helm-charts) and [Manifests](#manifests) in addons section.
+
+```yaml
+spec:
+  components:
+    addons:
+      - name: my-grafana
+        enabled: true
+        kind: chart
+        namespace: monitoring
+        chart:
+          name: grafana
+          repo: https://grafana.github.io/helm-charts
+          version: 6.58.7
+          values: |
+            ingress:
+              enabled: true
+      - name: metallb
+        kind: manifest
+        enabled: true
+        manifest:
+          url: "https://raw.githubusercontent.com/metallb/metallb/v0.14.3/config/manifests/metallb-native.yaml"
+```
