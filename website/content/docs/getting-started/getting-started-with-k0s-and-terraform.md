@@ -30,7 +30,7 @@ cluster_flavor = "m5.large"
 region = "us-east-1"
 ```
 2. `terraform init`
-3. `terraform apply -auto-approve`
+3. `terraform apply -auto-approve --var-file="terraform.tfvars.example"`
 4. `terraform output --raw k0s_cluster > VMs.yaml`
 
 > To get detailed information about the created VMs, use the AWS CLI:
