@@ -21,7 +21,7 @@ Creating virtual machines on AWS can be easily done using the [example Terraform
 
 After copying the example TF scripts to your local machine, you can create the VMs with the following steps:
 
-1. Create a copy of `terraform.tfvars.example` file with the content similar to:
+1. Create a `terraform.tfvars` file with content similar to:
 ```
 cluster_name = "k0s-cluster"
 controller_count = 1
@@ -30,7 +30,7 @@ cluster_flavor = "m5.large"
 region = "us-east-1"
 ```
 2. `terraform init`
-3. `terraform apply -auto-approve --var-file="terraform.tfvars.example"`
+3. `terraform apply -auto-approve`
 4. `terraform output --raw k0s_cluster > VMs.yaml`
 
 > To get detailed information about the created VMs, use the AWS CLI:
