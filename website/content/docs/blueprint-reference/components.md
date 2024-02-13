@@ -173,6 +173,8 @@ The following example updates the `failureThreshold` of the metallb controller c
                     failureThreshold: 2
 ```
 
+For more examples, please refer to [Kustomize - Inline Patches](https://github.com/kubernetes-sigs/kustomize/blob/master/examples/inlinePatch.md)
+
 ### Images
 
 To replace the name of an image in the manifest, the user must specify the image `name`(that is to be replaced), the `new name` and the `new tag`.
