@@ -99,10 +99,12 @@ spec:
           url: "https://raw.githubusercontent.com/metallb/metallb/v0.14.3/config/manifests/metallb-native.yaml"
 ```
 
-| Field        |               Description               |
-| :----------- | :-------------------------------------: |
-| manifest     |      Used to specify manifest info      |
-| manifest.url | Used to specify the url of the manifest |
+| Field                   |                                           Description                                            |
+|:------------------------|:------------------------------------------------------------------------------------------------:|
+| manifest                |                                  Used to specify manifest info                                   |
+| manifest.url            |                             Used to specify the url of the manifest                              |
+| manifest.values         | Used to specify kustomizations (Optional). More details [here](#kustomize-manifest-based-addons) |
+
 
 ### Example
 
@@ -128,4 +130,97 @@ spec:
         enabled: true
         manifest:
           url: "https://raw.githubusercontent.com/metallb/metallb/v0.14.3/config/manifests/metallb-native.yaml"
+```
+
+### Kustomize Manifest based addons
+
+The users can now apply customizations on top of the url based manifests. They can specify `inline patches` and keyword-based `images` kustomization in the blueprint. The boundless controller applies these kustomize transformations on the manifest objects and deploys them in the cluster.
+
+The inline patches and images are specified under the field, `values`, in the manifest spec. Please refer to this [example](#manifest-addon-kustomization) that uses both inline patches and images in the manifest addon.
+
+Field                   | Description                                                                                                           |
+|:------------------------|:----------------------------------------------------------------------------------------------------------------------|
+| manifest.values.patches | Used to specify list of inline patches to add or override manifest objects(Optional) [Example Usage](#inline-patches) |
+| manifest.values.images  | Used to specify list of images to be replaced in the manifest(Optional)  [Example Usage](#images)                     |
+
+
+### Inline Patches
+
+The users can specify one or more inline patches to add or override manifest objects. 
+
+The following example updates the `failureThreshold` of the metallb controller container to `2`.
+```yaml
+- name: metallb
+  kind: "Manifest"
+  enabled: true
+  namespace: boundless-system
+  manifest:
+    url: "https://raw.githubusercontent.com/metallb/metallb/v0.13.10/config/manifests/metallb-native.yaml"
+    values:
+      patches:
+      - patch: |-
+          apiVersion: apps/v1
+          kind: Deployment
+          metadata:
+            name: controller
+            namespace: metallb-system
+          spec:
+            template:
+              spec:
+                containers:
+                - name: controller
+                  livenessProbe:
+                    failureThreshold: 2
+```
+
+### Images
+
+To replace the name of an image in the manifest, the user must specify the image `name`(that is to be replaced), the `new name` and the `new tag`.
+
+```
+images:
+- name: quay.io/metallb/speaker:v0.13.10
+  newName: quay.io/metallb/speaker
+  newTag: v0.13.11
+
+```
+
+In the above snippet, the image with the name `quay.io/metallb/speaker:v0.13.10` in the manifest is replaced by `quay.io/metallb/speaker:v0.13.11`.
+
+
+### Manifest Addon Kustomization
+
+The following manifest addon uses both inline patch and images.
+
+If the metallb addon is created using this example, the metalLB instance that gets installed via BOP uses `v0.13.11` images instead of `v0.13.10`(specified url). And as per the specified inline patch, the `failureThreshold` of livenessProbe for the metalLB controller container is updated to `2`. 
+
+```yaml
+- name: metallb
+  kind: "Manifest"
+  enabled: true
+  namespace: boundless-system
+  manifest:
+    url: "https://raw.githubusercontent.com/metallb/metallb/v0.13.10/config/manifests/metallb-native.yaml"
+    values:
+      images:
+      - name: quay.io/metallb/speaker:v0.13.10
+        newName: quay.io/metallb/speaker
+        newTag: v0.13.11
+      - name: quay.io/metallb/controller:v0.13.10
+        newName: quay.io/metallb/controller
+        newTag: v0.13.11
+      patches:
+      - patch: |-
+          apiVersion: apps/v1
+          kind: Deployment
+          metadata:
+            name: controller
+            namespace: metallb-system
+          spec:
+            template:
+              spec:
+                containers:
+                - name: controller
+                  livenessProbe:
+                    failureThreshold: 2
 ```
