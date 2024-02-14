@@ -134,7 +134,12 @@ spec:
 
 ### Kustomize Manifest based addons
 
-The users can now apply customizations on top of the url based manifests. They can specify `inline patches` and keyword-based `images` kustomization in the blueprint. The boundless controller applies these kustomize transformations on the manifest objects and deploys them in the cluster.
+The users can now customize the static resources for URL based Manifest addons. These customization are based on [Kustomize](https://kustomize.io/).
+
+Following kustomize primitives are currently supported:
+
+- [Built-in images transformer](https://github.com/kubernetes-sigs/kustomize/blob/master/examples/transformerconfigs/README.md#images-transformer).
+- [Inline patches](https://github.com/kubernetes-sigs/kustomize/blob/master/examples/inlinePatch.md)
 
 The inline patches and images are specified under the field, `values`, in the manifest spec. Please refer to this [example](#manifest-addon-kustomization) that uses both inline patches and images in the manifest addon.
 
