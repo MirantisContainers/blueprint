@@ -3,3 +3,11 @@ blueprint.yaml
 kubeconfig
 
 .idea
+
+# Terraform
+.terraform
+.terraform.lock.hcl
+terraform.tfstate
+terraform.tfstate.backup
+
+*.pem

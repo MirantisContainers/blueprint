@@ -18,7 +18,7 @@ Generate a sample blueprint file using the built in `init` command:
 ```shell
 bctl init --kind > blueprint.yaml
 ```
-This will create a blueprint file `blueprint.yaml` with a kind cluster definition, a core ingress component and an addon.
+This will create a blueprint file `blueprint.yaml` with a kind cluster definition, and two addons.
 
 #### Deploy the blueprint
 ```shell
@@ -36,11 +36,11 @@ kubectl cluster-info
 
 Add a wordpress addon to the `blueprint.yaml`:
 ```YAML
-- name: wordpress
-   kind: chart
-   enabled: true
-   namespace: wordpress
-   chart:
+  - name: wordpress
+    kind: chart
+    enabled: true
+    namespace: wordpress
+    chart:
       name: wordpress
       repo: https://charts.bitnami.com/bitnami
       version: 18.0.11
