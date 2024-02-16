@@ -35,21 +35,6 @@ metadata:
 spec:
   components:
     addons:
-      - name: ingress-nginx
-        kind: chart
-        enabled: true
-        namespace: ingress-nginx
-        chart:
-          name: ingress-nginx
-          repo: https://kubernetes.github.io/ingress-nginx
-          version: latest
-          values: |
-            controller:
-              service:
-                nodePorts:
-                  http: 30000
-                  https: 30001
-                type: NodePort
       - name: example-server
         kind: chart
         enabled: true
