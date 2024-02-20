@@ -100,16 +100,7 @@ locals {
         }
       }
       components = {
-        core = {
-          cni = {
-            enabled  = true
-            provider = "calico"
-          }
-          ingress = {
-            enabled  = true
-            provider = "ingress-nginx"
-          }
-        }
+        addons = []
       }
     }
   }

@@ -4,22 +4,11 @@ draft: false
 weight: 11
 ---
 
-The components section of the blueprint is where you can define the different components that you want to install on your cluster. There are two types of components that can be installed: [core](#core) and [addons](#addons).
+The components section of the blueprint is where you can define the different addons that you want to install on your cluster: [addons](#addons).
 
 ```yaml
 spec:
   components:
-    core:
-      ingress:
-        enabled: true
-        provider: ingress-nginx
-        config:
-          controller:
-            service:
-              nodePorts:
-                http: 30000
-                https: 30001
-              type: NodePort
     addons:
       - name: example-server
         kind: chart
@@ -33,12 +22,6 @@ spec:
             "service":
               "type": "ClusterIP"
 ```
-
-## Core
-
-> Including core components with boundless is still under review and may change in the future.
-
-Core components are components that are typically required for a cluster to function and so they are included with boundless. They are defined in the `spec.components.core` section of a blueprint. Each of these components has the option to be disabled if there is a need to replace it with another option.
 
 ## Addons
 

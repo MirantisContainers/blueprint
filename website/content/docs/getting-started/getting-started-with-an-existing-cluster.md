@@ -31,21 +31,21 @@ Create a blueprint file `blueprint.yaml` with the following:
 apiVersion: boundless.mirantis.com/v1alpha1
 kind: Blueprint
 metadata:
-   name: boundless-cluster
+  name: boundless-cluster
 spec:
-   components:
-   addons:
+  components:
+    addons:
       - name: example-server
-         kind: chart
-         enabled: true
-         namespace: default
-         chart:
-         name: nginx
-         repo: https://charts.bitnami.com/bitnami
-         version: 15.1.1
-         values: |
+        kind: chart
+        enabled: true
+        namespace: default
+        chart:
+          name: nginx
+          repo: https://charts.bitnami.com/bitnami
+          version: 15.1.1
+          values: |
             "service":
-               "type": "ClusterIP"
+              "type": "ClusterIP"
 ```
 > The above example installs an example server addon by specifying a helm chart
 
