@@ -60,6 +60,6 @@ spec:
           repo: https://charts.bitnami.com/bitnami
           version: 15.1.1
           values: |
-            "service":
-              "type": "ClusterIP"
+            service:
+              type: ClusterIP
 ```

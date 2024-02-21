@@ -35,8 +35,8 @@ spec:
           repo: https://charts.bitnami.com/bitnami
           version: ${EXAMPLE_VERSION}
           values: |
-            "service":
-              "type": "ClusterIP"
+            service:
+              type: ClusterIP
 ```
 
 That's it! Now you can use the same blueprint in different environments without having to change the blueprint itself.
