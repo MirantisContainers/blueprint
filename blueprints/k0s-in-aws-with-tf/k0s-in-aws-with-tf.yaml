@@ -30,6 +30,6 @@ spec:
           name: nginx
           repo: https://charts.bitnami.com/bitnami
           version: 15.1.1
-          values: |2
-            "service":
-              "type": "ClusterIP"
+          values: |
+            service:
+              type: ClusterIP

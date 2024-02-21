@@ -19,15 +19,14 @@ spec:
           repo: https://charts.bitnami.com/bitnami
           version: 15.1.1
           values: |
-            "service":
-              "type": "ClusterIP"
+            service:
+              type: ClusterIP
 ```
 
 ## Addons
 
-Addons allow you to easily install new software on your cluster. There are two types of addons: [Helm Charts](#helm-charts) and [Manifests](#manifests). 
+Addons allow you to easily install new software on your cluster. There are two types of addons: [Helm Charts](#helm-charts) and [Manifests](#manifests).
 They are defined as an array in the `spec.components.addons` section of a blueprint. Please refer to this [example](#example) that uses both of these types in addons section.
-
 
 | Field     |                            Description                            |
 | :-------- | :---------------------------------------------------------------: |
@@ -82,12 +81,11 @@ spec:
           url: "https://raw.githubusercontent.com/metallb/metallb/v0.14.3/config/manifests/metallb-native.yaml"
 ```
 
-| Field                   |                                           Description                                            |
-|:------------------------|:------------------------------------------------------------------------------------------------:|
-| manifest                |                                  Used to specify manifest info                                   |
-| manifest.url            |                             Used to specify the url of the manifest                              |
-| manifest.values         | Used to specify kustomizations (Optional). More details [here](#kustomize-manifest-based-addons) |
-
+| Field           |                                           Description                                            |
+| :-------------- | :----------------------------------------------------------------------------------------------: |
+| manifest        |                                  Used to specify manifest info                                   |
+| manifest.url    |                             Used to specify the url of the manifest                              |
+| manifest.values | Used to specify kustomizations (Optional). More details [here](#kustomize-manifest-based-addons) |
 
 ### Example
 
@@ -126,17 +124,17 @@ Following kustomize primitives are currently supported:
 
 The inline patches and images are specified under the field, `values`, in the manifest spec. Please refer to this [example](#manifest-addon-kustomization) that uses both inline patches and images in the manifest addon.
 
-Field                   | Description                                                                                                           |
-|:------------------------|:----------------------------------------------------------------------------------------------------------------------|
+| Field                   | Description                                                                                                           |
+| :---------------------- | :-------------------------------------------------------------------------------------------------------------------- |
 | manifest.values.patches | Used to specify list of inline patches to add or override manifest objects(Optional) [Example Usage](#inline-patches) |
-| manifest.values.images  | Used to specify list of images to be replaced in the manifest(Optional)  [Example Usage](#images)                     |
-
+| manifest.values.images  | Used to specify list of images to be replaced in the manifest(Optional) [Example Usage](#images)                      |
 
 ### Inline Patches
 
-The users can specify one or more inline patches to add or override manifest objects. 
+The users can specify one or more inline patches to add or override manifest objects.
 
 The following example updates the `failureThreshold` of the metallb controller container to `2`.
+
 ```yaml
 - name: metallb
   kind: "Manifest"
@@ -146,19 +144,19 @@ The following example updates the `failureThreshold` of the metallb controller c
     url: "https://raw.githubusercontent.com/metallb/metallb/v0.13.10/config/manifests/metallb-native.yaml"
     values:
       patches:
-      - patch: |-
-          apiVersion: apps/v1
-          kind: Deployment
-          metadata:
-            name: controller
-            namespace: metallb-system
-          spec:
-            template:
-              spec:
-                containers:
-                - name: controller
-                  livenessProbe:
-                    failureThreshold: 2
+        - patch: |-
+            apiVersion: apps/v1
+            kind: Deployment
+            metadata:
+              name: controller
+              namespace: metallb-system
+            spec:
+              template:
+                spec:
+                  containers:
+                  - name: controller
+                    livenessProbe:
+                      failureThreshold: 2
 ```
 
 For more examples, please refer to [Kustomize - Inline Patches](https://github.com/kubernetes-sigs/kustomize/blob/master/examples/inlinePatch.md)
@@ -177,12 +175,11 @@ images:
 
 In the above snippet, the image with the name `quay.io/metallb/speaker:v0.13.10` in the manifest is replaced by `quay.io/metallb/speaker:v0.13.11`.
 
-
 ### Manifest Addon Kustomization
 
 The following manifest addon uses both inline patch and images.
 
-If the metallb addon is created using this example, the metalLB instance that gets installed via BOP uses `v0.13.11` images instead of `v0.13.10`(specified url). And as per the specified inline patch, the `failureThreshold` of livenessProbe for the metalLB controller container is updated to `2`. 
+If the metallb addon is created using this example, the metalLB instance that gets installed via BOP uses `v0.13.11` images instead of `v0.13.10`(specified url). And as per the specified inline patch, the `failureThreshold` of livenessProbe for the metalLB controller container is updated to `2`.
 
 ```yaml
 - name: metallb
@@ -193,24 +190,24 @@ If the metallb addon is created using this example, the metalLB instance that ge
     url: "https://raw.githubusercontent.com/metallb/metallb/v0.13.10/config/manifests/metallb-native.yaml"
     values:
       images:
-      - name: quay.io/metallb/speaker:v0.13.10
-        newName: quay.io/metallb/speaker
-        newTag: v0.13.11
-      - name: quay.io/metallb/controller:v0.13.10
-        newName: quay.io/metallb/controller
-        newTag: v0.13.11
+        - name: quay.io/metallb/speaker:v0.13.10
+          newName: quay.io/metallb/speaker
+          newTag: v0.13.11
+        - name: quay.io/metallb/controller:v0.13.10
+          newName: quay.io/metallb/controller
+          newTag: v0.13.11
       patches:
-      - patch: |-
-          apiVersion: apps/v1
-          kind: Deployment
-          metadata:
-            name: controller
-            namespace: metallb-system
-          spec:
-            template:
-              spec:
-                containers:
-                - name: controller
-                  livenessProbe:
-                    failureThreshold: 2
+        - patch: |-
+            apiVersion: apps/v1
+            kind: Deployment
+            metadata:
+              name: controller
+              namespace: metallb-system
+            spec:
+              template:
+                spec:
+                  containers:
+                  - name: controller
+                    livenessProbe:
+                      failureThreshold: 2
 ```
