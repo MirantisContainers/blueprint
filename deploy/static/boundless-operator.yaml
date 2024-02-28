@@ -1166,7 +1166,7 @@ spec:
         env:
         - name: ENABLE_WEBHOOKS
           value: "false"
-        image: ghcr.io/mirantiscontainers/boundless-operator:1.0.0-rc.1
+        image: ghcr.io/mirantiscontainers/boundless-operator:1.0.0-rc1
         livenessProbe:
           httpGet:
             path: /healthz
