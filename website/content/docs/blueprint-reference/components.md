@@ -81,12 +81,13 @@ spec:
           url: "https://raw.githubusercontent.com/metallb/metallb/v0.14.3/config/manifests/metallb-native.yaml"
 ```
 
-| Field           |                                           Description                                            |
-| :-------------- | :----------------------------------------------------------------------------------------------: |
-| manifest        |                                  Used to specify manifest info                                   |
-| manifest.url    |                             Used to specify the url of the manifest                              |
-| manifest.values | Used to specify kustomizations (Optional). More details [here](#kustomize-manifest-based-addons) |
-
+| Field                  |                                                       Description                                                        |
+|:-----------------------|:------------------------------------------------------------------------------------------------------------------------:|
+| manifest               |                                              Used to specify manifest info                                               |
+| manifest.url           |                                         Used to specify the url of the manifest                                          |
+| manifest.values        |             Used to specify kustomizations (Optional). More details [here](#kustomize-manifest-based-addons)             |
+| manifest.failurePolicy |    Used to specify the failure policy for the addon (Optional) . The failure policy can be either `retry` or `none`.     |
+ | manifest.timeout       | Used to specify the timeout for the addon to become Available (Optional). Has no effect if retry policy is set to `none` |
 ### Example
 
 An example blueprint that uses both [Helm Charts](#helm-charts) and [Manifests](#manifests) in addons section.
