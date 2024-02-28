@@ -37,7 +37,7 @@ They are defined as an array in the `spec.components.addons` section of a bluepr
 
 ### Helm Charts
 
-Any public Helm chart can be used as an add-on.
+Any public Helm chart can be used as an add-on. Currently Helm version `v3.13.0` is used to install the charts.
 
 The following is an example to add the `grafana` as a chart addon:
 
