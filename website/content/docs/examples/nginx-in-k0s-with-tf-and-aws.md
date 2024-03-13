@@ -70,7 +70,7 @@ bctl apply -f k0s-in-aws-with-tf.yaml
 It will take a few moments before the Nginx pods are ready. You can monitor the progress with:
 
 ```shell
-watch -n 1 kubectl get pods
+kubectl get pods -w
 ```
 
 #### Cleanup

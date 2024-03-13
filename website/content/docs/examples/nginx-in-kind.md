@@ -54,7 +54,7 @@ INF Finished installing Boundless Operator
 It will take a few moments before the Nginx pods are ready. You can check the status.
 
 ```shell
-watch -n 1 kubectl get pods
+kubectl get pods -w
 ```
 
 #### Cleanup
