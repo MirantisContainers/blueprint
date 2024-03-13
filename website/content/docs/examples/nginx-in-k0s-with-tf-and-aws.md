@@ -32,7 +32,7 @@ Refer to the [example Terraform scripts](https://github.com/mirantiscontainers/b
 
 #### Setting up the blueprint
 
-Download the [example blueprint](https://raw.githubusercontent.com/mirantiscontainers/boundless/main/blueprints/k0s-lens-appiq/k0s-in-aws-with-tf.yaml) for Nginx.
+Download the [example blueprint](https://raw.githubusercontent.com/mirantiscontainers/boundless/main/blueprints/k0s-in-aws-with-tf/k0s-in-aws-with-tf.yaml) for Nginx.
 
 Modify the blueprint so that the `spec.kubernetes.infra.hosts` section matches your AWS VMs' IP address, username, SSH port, and SSH credentials. The values can be passed as environment variables or replaced with your own values. For example, the hosts section should match the output from `terraform output --raw bop_cluster`. For example:
 
