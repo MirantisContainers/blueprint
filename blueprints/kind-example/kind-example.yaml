@@ -1,0 +1,20 @@
+apiVersion: boundless.mirantis.com/v1alpha1
+kind: Blueprint
+metadata:
+  name: kind-cluster
+spec:
+  kubernetes:
+    provider: kind
+  components:
+    addons:
+      - name: example-server
+        kind: chart
+        enabled: true
+        namespace: default
+        chart:
+          name: nginx
+          repo: https://charts.bitnami.com/bitnami
+          version: 15.1.1
+          values: |
+            service:
+              type: ClusterIP
