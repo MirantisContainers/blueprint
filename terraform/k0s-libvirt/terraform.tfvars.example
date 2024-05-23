@@ -1,0 +1,7 @@
+cluster_name = "boundless-cluster"
+cores = 2
+mem_size = "2048"
+disk_size = 20
+user_account = "user"
+ssh_public_key = "ssh-rsa AAAEXAMPLE user@example.com"
+ssh_key_path = "/home/user/.ssh/id_rsa"
