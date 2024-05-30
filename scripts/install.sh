@@ -43,7 +43,7 @@ arm64|aarch64)
 esac
 
 BINARY_NAME="bctl_${opsys}_${arch}.tar.gz"
-CHECKSUM_NAME="boundless_${VERSION:1}_checksums.txt"
+CHECKSUM_NAME="blueprint_${VERSION:1}_checksums.txt"
 
 cleanup() {
   rm -f ${BINARY_NAME}
