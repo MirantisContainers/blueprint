@@ -1,6 +1,6 @@
 baseURL: /
 languageCode: en-us
-title: Boundless Operator
+title: Blueprint Operator
 icon: images/mirantis.ico
 
 module:
@@ -28,7 +28,7 @@ menu:
         type: search
     - name: GitHub
       weight: 6
-      url: "https://github.com/mirantiscontainers/boundless"
+      url: "https://github.com/mirantiscontainers/blueprint"
       params:
         icon: github
     - name: Mirantis
@@ -47,7 +47,7 @@ menu:
       weight: 2
     - name: GitHub
       weight: 6
-      url: "https://github.com/mirantiscontainers/boundless"
+      url: "https://github.com/mirantiscontainers/blueprint"
       params:
         icon: github
     - name: Mirantis
@@ -94,4 +94,4 @@ params:
 
   editURL:
     enable: true
-    base: "https://github.com/mirantiscontainers/boundless/edit/main/website/content"
+    base: "https://github.com/mirantiscontainers/blueprint/edit/main/website/content"
