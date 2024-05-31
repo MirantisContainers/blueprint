@@ -1,4 +1,4 @@
-module github.com/mirantiscontainers/boundless
+module github.com/mirantiscontainers/blueprint
 
 go 1.21
 

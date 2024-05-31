@@ -1,16 +1,16 @@
 #!/bin/bash
 INSTALL_DIR=/usr/local/bin
-REPO_URL="https://github.com/mirantiscontainers/boundless"
+REPO_URL="https://github.com/mirantiscontainers/blueprint"
 
 # Determine the version
 if [[ ! -n $VERSION ]]
 then
   # Get information about the latest release and pull version from the tag in it
-  VERSION=`curl -s https://api.github.com/repos/mirantiscontainers/boundless/releases/latest | grep tag_name | tr -s ' ' | cut -d ' ' -f 3 | cut -d '"' -f 2`
+  VERSION=`curl -s https://api.github.com/repos/mirantiscontainers/blueprint/releases/latest | grep tag_name | tr -s ' ' | cut -d ' ' -f 3 | cut -d '"' -f 2`
   echo "VERSION not set, using latest release: ${VERSION}"
 else
   # Make sure it is a valid version
-  curl -s https://api.github.com/repos/mirantiscontainers/boundless/releases | grep tag_name | grep $VERSION &> /dev/null
+  curl -s https://api.github.com/repos/mirantiscontainers/blueprint/releases | grep tag_name | grep $VERSION &> /dev/null
   if [[ $? -ne 0 ]]
   then
     echo "Invalid version specified: ${VERSION}"
