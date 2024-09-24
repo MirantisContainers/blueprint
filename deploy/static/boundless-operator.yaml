@@ -69,6 +69,10 @@ spec:
               properties:
                 chart:
                   properties:
+                    dependsOn:
+                      items:
+                        type: string
+                      type: array
                     name:
                       type: string
                     repo:
@@ -142,6 +146,8 @@ spec:
                                   TagSuffix is the value used to suffix the original tag
                                   If Digest and NewTag is present an error is thrown
                                 type: string
+                            required:
+                              - name
                             type: object
                           type: array
                         patches:
@@ -311,6 +317,10 @@ spec:
                         properties:
                           chart:
                             properties:
+                              dependsOn:
+                                items:
+                                  type: string
+                                type: array
                               name:
                                 type: string
                               repo:
@@ -384,6 +394,8 @@ spec:
                                             TagSuffix is the value used to suffix the original tag
                                             If Digest and NewTag is present an error is thrown
                                           type: string
+                                      required:
+                                        - name
                                       type: object
                                     type: array
                                   patches:
@@ -5734,6 +5746,8 @@ spec:
                               TagSuffix is the value used to suffix the original tag
                               If Digest and NewTag is present an error is thrown
                             type: string
+                        required:
+                          - name
                         type: object
                       type: array
                     patches:
