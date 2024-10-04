@@ -16,7 +16,7 @@ kind: CustomResourceDefinition
 metadata:
   annotations:
     cert-manager.io/inject-ca-from: $(CERTIFICATE_NAMESPACE)/$(CERTIFICATE_NAME)
-    controller-gen.kubebuilder.io/version: v0.14.0
+    controller-gen.kubebuilder.io/version: v0.15.0
   name: addons.blueprint.mirantis.com
 spec:
   conversion:
@@ -69,6 +69,10 @@ spec:
               properties:
                 chart:
                   properties:
+                    dependsOn:
+                      items:
+                        type: string
+                      type: array
                     name:
                       type: string
                     repo:
@@ -142,6 +146,8 @@ spec:
                                   TagSuffix is the value used to suffix the original tag
                                   If Digest and NewTag is present an error is thrown
                                 type: string
+                            required:
+                              - name
                             type: object
                           type: array
                         patches:
@@ -177,8 +183,16 @@ spec:
                                       It matches with the resource annotations.
                                     type: string
                                   group:
+                                    description: |-
+                                      Group is the API group to select resources from.
+                                      Together with Version and Kind it is capable of unambiguously identifying and/or selecting resources.
+                                      https://github.com/kubernetes/community/blob/master/contributors/design-proposals/api-machinery/api-group.md
                                     type: string
                                   kind:
+                                    description: |-
+                                      Kind of the API Group to select resources from.
+                                      Together with Group and Version it is capable of unambiguously identifying and/or selecting resources.
+                                      https://github.com/kubernetes/community/blob/master/contributors/design-proposals/api-machinery/api-group.md
                                     type: string
                                   labelSelector:
                                     description: |-
@@ -187,12 +201,16 @@ spec:
                                       It matches with the resource labels.
                                     type: string
                                   name:
-                                    description: Name of the resource.
+                                    description: Name to match resources with.
                                     type: string
                                   namespace:
-                                    description: Namespace the resource belongs to, if it can belong to a namespace.
+                                    description: Namespace to select resources from.
                                     type: string
                                   version:
+                                    description: |-
+                                      Version of the API Group to select resources from.
+                                      Together with Group and Kind it is capable of unambiguously identifying and/or selecting resources.
+                                      https://github.com/kubernetes/community/blob/master/contributors/design-proposals/api-machinery/api-group.md
                                     type: string
                                 type: object
                             required:
@@ -244,7 +262,7 @@ kind: CustomResourceDefinition
 metadata:
   annotations:
     cert-manager.io/inject-ca-from: $(CERTIFICATE_NAMESPACE)/$(CERTIFICATE_NAME)
-    controller-gen.kubebuilder.io/version: v0.14.0
+    controller-gen.kubebuilder.io/version: v0.15.0
   name: blueprints.blueprint.mirantis.com
 spec:
   conversion:
@@ -299,6 +317,10 @@ spec:
                         properties:
                           chart:
                             properties:
+                              dependsOn:
+                                items:
+                                  type: string
+                                type: array
                               name:
                                 type: string
                               repo:
@@ -372,6 +394,8 @@ spec:
                                             TagSuffix is the value used to suffix the original tag
                                             If Digest and NewTag is present an error is thrown
                                           type: string
+                                      required:
+                                        - name
                                       type: object
                                     type: array
                                   patches:
@@ -407,8 +431,16 @@ spec:
                                                 It matches with the resource annotations.
                                               type: string
                                             group:
+                                              description: |-
+                                                Group is the API group to select resources from.
+                                                Together with Version and Kind it is capable of unambiguously identifying and/or selecting resources.
+                                                https://github.com/kubernetes/community/blob/master/contributors/design-proposals/api-machinery/api-group.md
                                               type: string
                                             kind:
+                                              description: |-
+                                                Kind of the API Group to select resources from.
+                                                Together with Group and Version it is capable of unambiguously identifying and/or selecting resources.
+                                                https://github.com/kubernetes/community/blob/master/contributors/design-proposals/api-machinery/api-group.md
                                               type: string
                                             labelSelector:
                                               description: |-
@@ -417,12 +449,16 @@ spec:
                                                 It matches with the resource labels.
                                               type: string
                                             name:
-                                              description: Name of the resource.
+                                              description: Name to match resources with.
                                               type: string
                                             namespace:
-                                              description: Namespace the resource belongs to, if it can belong to a namespace.
+                                              description: Namespace to select resources from.
                                               type: string
                                             version:
+                                              description: |-
+                                                Version of the API Group to select resources from.
+                                                Together with Group and Kind it is capable of unambiguously identifying and/or selecting resources.
+                                                https://github.com/kubernetes/community/blob/master/contributors/design-proposals/api-machinery/api-group.md
                                               type: string
                                           type: object
                                       required:
@@ -5470,7 +5506,7 @@ kind: CustomResourceDefinition
 metadata:
   annotations:
     cert-manager.io/inject-ca-from: $(CERTIFICATE_NAMESPACE)/$(CERTIFICATE_NAME)
-    controller-gen.kubebuilder.io/version: v0.14.0
+    controller-gen.kubebuilder.io/version: v0.15.0
   name: installations.blueprint.mirantis.com
 spec:
   conversion:
@@ -5594,7 +5630,7 @@ kind: CustomResourceDefinition
 metadata:
   annotations:
     cert-manager.io/inject-ca-from: $(CERTIFICATE_NAMESPACE)/$(CERTIFICATE_NAME)
-    controller-gen.kubebuilder.io/version: v0.14.0
+    controller-gen.kubebuilder.io/version: v0.15.0
   name: manifests.blueprint.mirantis.com
 spec:
   conversion:
@@ -5710,6 +5746,8 @@ spec:
                               TagSuffix is the value used to suffix the original tag
                               If Digest and NewTag is present an error is thrown
                             type: string
+                        required:
+                          - name
                         type: object
                       type: array
                     patches:
@@ -5745,8 +5783,16 @@ spec:
                                   It matches with the resource annotations.
                                 type: string
                               group:
+                                description: |-
+                                  Group is the API group to select resources from.
+                                  Together with Version and Kind it is capable of unambiguously identifying and/or selecting resources.
+                                  https://github.com/kubernetes/community/blob/master/contributors/design-proposals/api-machinery/api-group.md
                                 type: string
                               kind:
+                                description: |-
+                                  Kind of the API Group to select resources from.
+                                  Together with Group and Version it is capable of unambiguously identifying and/or selecting resources.
+                                  https://github.com/kubernetes/community/blob/master/contributors/design-proposals/api-machinery/api-group.md
                                 type: string
                               labelSelector:
                                 description: |-
@@ -5755,12 +5801,16 @@ spec:
                                   It matches with the resource labels.
                                 type: string
                               name:
-                                description: Name of the resource.
+                                description: Name to match resources with.
                                 type: string
                               namespace:
-                                description: Namespace the resource belongs to, if it can belong to a namespace.
+                                description: Namespace to select resources from.
                                 type: string
                               version:
+                                description: |-
+                                  Version of the API Group to select resources from.
+                                  Together with Group and Kind it is capable of unambiguously identifying and/or selecting resources.
+                                  https://github.com/kubernetes/community/blob/master/contributors/design-proposals/api-machinery/api-group.md
                                 type: string
                             type: object
                         required:
@@ -6264,3 +6314,6 @@ spec:
           type: RuntimeDefault
       serviceAccountName: blueprint-operator-controller-manager
       terminationGracePeriodSeconds: 10
+      tolerations:
+        - effect: NoSchedule
+          key: node-role.kubernetes.io/master

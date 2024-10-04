@@ -11,7 +11,7 @@ weight: 1
 Installing the latest version of Boundless is as simple as running the following command:
 
 ```shell
-/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/mirantiscontainers/boundless/main/scripts/install.sh)"
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/mirantiscontainers/blueprint/main/scripts/install.sh)"
 ```
 The install script will download the latest version of the boundless cli, verify it with the checksum, and install it to `/usr/local/bin/bctl`.
 
@@ -20,14 +20,14 @@ The install script will download the latest version of the boundless cli, verify
 If you would like to install a specific version of Boundless, you can specify the version as an environment var for the install script:
 
 ```shell
-/bin/bash -c "VERSION=<desired version> $(curl -fsSL https://raw.githubusercontent.com/mirantiscontainers/boundless/main/scripts/install.sh)"
+/bin/bash -c "VERSION=<desired version> $(curl -fsSL https://raw.githubusercontent.com/mirantiscontainers/blueprint/main/scripts/install.sh)"
 ```
 
-You can find the different releases on the [releases page](https://github.com/mirantiscontainers/boundless/releases).
+You can find the different releases on the [releases page](https://github.com/mirantiscontainers/blueprint/releases).
 
 ### Manual installation
 
-Open the [releases page](https://github.com/mirantiscontainers/boundless/releases) and download the correct binary for your machine along with the boundless_\<version\>_checksums.txt file.
+Open the [releases page](https://github.com/mirantiscontainers/blueprint/releases) and download the correct binary for your machine along with the boundless_\<version\>_checksums.txt file.
 Place both in the same directory and run the following command:
 
 ```shell
