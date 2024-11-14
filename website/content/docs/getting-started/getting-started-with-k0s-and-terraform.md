@@ -4,11 +4,11 @@ draft: false
 weight: 4
 ---
 
-This example shows how to create a k0s cluster in AWS using Terraform and then install Boundless Operator on it.
+This example shows how to create a k0s cluster in AWS using Terraform and then install Blueprint Operator on it.
 
 #### Prerequisites
 
-Along with `boundless` CLI, you will also need the following tools installed:
+Along with `blueprint` CLI, you will also need the following tools installed:
 
 * [k0sctl](https://github.com/k0sproject/k0sctl#installation) - required for installing a k0s distribution
 * [terraform](https://developer.hashicorp.com/terraform/tutorials/aws-get-started/install-cli) - for creating VMs in AWS
@@ -17,7 +17,7 @@ You will also need an AWS account and the `AWS_ACCESS_KEY_ID`, `AWS_SECRET_ACCES
 
 #### Create virtual machines on AWS
 
-Creating virtual machines on AWS can be easily done using the [example Terraform scripts](https://github.com/mirantiscontainers/boundless/tree/main/terraform/k0s-in-aws).
+Creating virtual machines on AWS can be easily done using the [example Terraform scripts](https://github.com/mirantiscontainers/blueprint/tree/main/terraform/k0s-in-aws).
 
 After copying the example TF scripts to your local machine, you can create the VMs with the following steps:
 
@@ -40,9 +40,9 @@ region = "us-east-1"
 > Alternatively, for a visual overview:
 > Go to the AWS EC2 page. Select the desired region from the dropdown menu at the top-right corner.
 
-#### Install Boundless Operator on `k0s`
+#### Install Blueprint Operator on `k0s`
 
-1. Download the example blueprint for [creating a k0s cluster in AWS with TF](https://github.com/mirantiscontainers/boundless/tree/main/blueprints/k0s-in-aws-with-tf/k0s-in-aws-with-tf.yaml)
+1. Download the example blueprint for [creating a k0s cluster in AWS with TF](https://github.com/mirantiscontainers/blueprint/tree/main/blueprints/k0s-in-aws-with-tf/k0s-in-aws-with-tf.yaml)
 
 2. Edit the `k0s-in-aws-with-tf.yaml` blueprint to set the `spec.kubernetes.infra.hosts` values to those from the `VMs.yaml` file.
 
@@ -86,8 +86,8 @@ watch -n 1 kubectl get pods --all-namespaces
 It will take a few moments before the pods are ready:
 ```
 NAMESPACE          NAME                                                     READY   STATUS              RESTARTS   AGE
-boundless-system   boundless-operator-controller-manager-677b86bdc4-rtjwb   1/2     Running             0          25s
-boundless-system   helm-controller-79cc59c76b-vsr2v                         1/1     Running             0          5s
+blueprint-system   blueprint-operator-controller-manager-677b86bdc4-rtjwb   1/2     Running             0          25s
+blueprint-system   helm-controller-79cc59c76b-vsr2v                         1/1     Running             0          5s
 default            helm-install-nginx-mj2qt                                 0/1     ContainerCreating   0          3s
 kube-system        coredns-878bb57ff-d4j99                                  1/1     Running             0          40s
 kube-system        konnectivity-agent-jkz62                                 1/1     Running             0          39s

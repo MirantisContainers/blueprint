@@ -20,5 +20,5 @@ bctl verify [flags]
 | Flag             | Description                              | Default            |
 |------------------|------------------------------------------|--------------------|
 | `-h, --help`     | Display the help for verify              |
-| `-f, --file`     | The path to the blueprint file to verify | `./boundless.yaml` |
+| `-f, --file`     | The path to the blueprint file to verify | `./blueprint.yaml` |
 | `-l, --logLevel` | log level to use                         | info               |

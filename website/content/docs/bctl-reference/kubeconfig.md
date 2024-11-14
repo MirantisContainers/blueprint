@@ -17,4 +17,4 @@ bctl kubeconfig [flags]
 | Flag | Description                                                        | Default |
 | ---- |--------------------------------------------------------------------| ------- |
 | `-h, --help` | Display the help for kubeconfig                                    |
-| `-f, --file` | The path to the current blueprint file used to generate kubeconfig | `./boundless.yaml` |
+| `-f, --file` | The path to the current blueprint file used to generate kubeconfig | `./blueprint.yaml` |

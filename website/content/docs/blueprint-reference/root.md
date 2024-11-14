@@ -10,7 +10,7 @@ The root fields are the top level fields in a blueprint. These fields are used t
 The following is an example of a blueprint with only the root fields:
 
 ```yaml
-apiVersion: boundless.mirantis.com/v1alpha1
+apiVersion: blueprint.mirantis.com/v1alpha1
 kind: Blueprint
 metadata:
   ...
@@ -22,7 +22,7 @@ spec:
 
 ## apiVersion
 
-The `apiVersion` field is used to specify the boundless version. This field is required and must be set to one of the versions found in the [boundless repo](https://github.com/MirantisContainers/boundless).
+The `apiVersion` field is used to specify the blueprint version. This field is required and must be set to one of the versions found in the [blueprint repo](https://github.com/MirantisContainers/blueprint).
 
 ## kind
 

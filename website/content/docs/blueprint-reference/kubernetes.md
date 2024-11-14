@@ -4,17 +4,17 @@ draft: false
 weight: 11
 ---
 
-The `kubernetes` field is used to specify the kubernetes provider and version. This field is optional and not specifying it will result in boundless defaulting to the `existing` provider.
+The `kubernetes` field is used to specify the kubernetes provider and version. This field is optional and not specifying it will result in blueprint defaulting to the `existing` provider.
 
-There are currently two kubernetes providers that are officially supported by boundless: `kind` and `k0s`.
+There are currently two kubernetes providers that are officially supported by blueprint: `kind` and `k0s`.
 
-An `existing` provider can also be used to specify an unsupported kubernetes provider. Using this provider will install boundless and the specified addons on an existing kubernetes cluster but no cluster management will be possible. If a kubeconfig is not specified, boundless will fail to find the existing cluster.
+An `existing` provider can also be used to specify an unsupported kubernetes provider. Using this provider will install blueprint and the specified addons on an existing kubernetes cluster but no cluster management will be possible. If a kubeconfig is not specified, blueprint will fail to find the existing cluster.
 
-> Using an unsupported kubernetes provider expects that the underlying cluster is being managed outside of boundless.
+> Using an unsupported kubernetes provider expects that the underlying cluster is being managed outside of blueprint.
 
 ## k0s
 
-Specifying a `k0s` will create a k0s cluster, install the boundless operator, and install the specified components. The following is an example of how to specify a `k0s` cluster:
+Specifying a `k0s` will create a k0s cluster, install the blueprint operator, and install the specified components. The following is an example of how to specify a `k0s` cluster:
 
 ```yaml
 spec:
@@ -52,13 +52,13 @@ spec:
 
 ## kind
 
-Specifying a `kind` provider will create a kind cluster, install the boundless operator, and install the specified components. The following is an example of how to specify a `kind` cluster:
+Specifying a `kind` provider will create a kind cluster, install the blueprint operator, and install the specified components. The following is an example of how to specify a `kind` cluster:
 
 ```yaml
-apiVersion: boundless.mirantis.com/v1alpha1
+apiVersion: blueprint.mirantis.com/v1alpha1
 kind: Blueprint
 metadata:
-  name: boundless-cluster
+  name: blueprint-cluster
 spec:
   kubernetes:
     provider: kind
@@ -72,15 +72,15 @@ spec:
 
 ## existing
 
-> Using an unsupported kubernetes provider expects that the underlying cluster is being managed outside of boundless.
+> Using an unsupported kubernetes provider expects that the underlying cluster is being managed outside of blueprint.
 
-Specifying an `existing` provider will install boundless and the specified addons on an existing kubernetes cluster. This is the default value that will be used if no `kubernetes` section is provided in the blueprint. The following is an example of how to specify an `existing` cluster:
+Specifying an `existing` provider will install blueprint and the specified addons on an existing kubernetes cluster. This is the default value that will be used if no `kubernetes` section is provided in the blueprint. The following is an example of how to specify an `existing` cluster:
 
 ```yaml
-apiVersion: boundless.mirantis.com/v1alpha1
+apiVersion: blueprint.mirantis.com/v1alpha1
 kind: Blueprint
 metadata:
-  name: boundless-cluster
+  name: blueprint-cluster
 spec:
   kubernetes:
     provider: existing

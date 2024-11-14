@@ -17,7 +17,7 @@ export EXAMPLE_VERSION="15.1.1"
 and then using it in your blueprint.yaml file
 
 ```yaml
-apiVersion: boundless.mirantis.com/v1alpha1
+apiVersion: blueprint.mirantis.com/v1alpha1
 kind: Blueprint
 metadata:
   name: variable-example

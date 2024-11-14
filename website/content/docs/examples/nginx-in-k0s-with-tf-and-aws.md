@@ -7,7 +7,7 @@ Bootstrap a k0s cluster in AWs with terraform and install Nginx.
 
 #### Pre-requisite
 
-Along with `boundless` CLI, the following tools will also be required:
+Along with `blueprint` CLI, the following tools will also be required:
 
 - [AWS](https://aws.amazon.com/cli/) - used to create VMs for running the cluster
 - [terraform](https://www.terraform.io/) - used setup VMs in AWS
@@ -16,12 +16,12 @@ Along with `boundless` CLI, the following tools will also be required:
 
 #### Setting up VMs in AWS
 
-Refer to the [example Terraform scripts](https://github.com/mirantiscontainers/boundless/tree/main/terraform/k0s-in-aws) for creating VMs in AWS.
+Refer to the [example Terraform scripts](https://github.com/mirantiscontainers/blueprint/tree/main/terraform/k0s-in-aws) for creating VMs in AWS.
 
 1. Change to the directory containing the Terraform scripts.
 2. Copy the `terraform.tfvars.example` to `terraform.tfvars` and change the content to be similar to:
    ```
-   cluster_name = "example-boundless"
+   cluster_name = "example-blueprint"
    controller_count = 1
    worker_count = 1
    cluster_flavor = "m5.large"
@@ -32,7 +32,7 @@ Refer to the [example Terraform scripts](https://github.com/mirantiscontainers/b
 
 #### Setting up the blueprint
 
-Download the [example blueprint](https://raw.githubusercontent.com/mirantiscontainers/boundless/main/blueprints/k0s-in-aws-with-tf/k0s-in-aws-with-tf.yaml) for Nginx.
+Download the [example blueprint](https://raw.githubusercontent.com/mirantiscontainers/blueprint/main/blueprints/k0s-in-aws-with-tf/k0s-in-aws-with-tf.yaml) for Nginx.
 
 Modify the blueprint so that the `spec.kubernetes.infra.hosts` section matches your AWS VMs' IP address, username, SSH port, and SSH credentials. The values can be passed as environment variables or replaced with your own values. For example, the hosts section should match the output from `terraform output --raw bop_cluster`. For example:
 

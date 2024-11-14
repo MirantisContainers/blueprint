@@ -140,7 +140,7 @@ The following example updates the `failureThreshold` of the metallb controller c
 - name: metallb
   kind: "Manifest"
   enabled: true
-  namespace: boundless-system
+  namespace: blueprint-system
   manifest:
     url: "https://raw.githubusercontent.com/metallb/metallb/v0.13.10/config/manifests/metallb-native.yaml"
     values:
@@ -186,7 +186,7 @@ If the metallb addon is created using this example, the metalLB instance that ge
 - name: metallb
   kind: "Manifest"
   enabled: true
-  namespace: boundless-system
+  namespace: blueprint-system
   manifest:
     url: "https://raw.githubusercontent.com/metallb/metallb/v0.13.10/config/manifests/metallb-native.yaml"
     values:
