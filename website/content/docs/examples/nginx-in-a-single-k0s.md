@@ -3,18 +3,18 @@ title: "Nginx with k0s on a VM"
 draft: false
 ---
 
-This example shows how use boundless to create a single node k0s cluster using a local VM and install [Nginx](https://artifacthub.io/packages/helm/bitnami/nginx) on it.
+This example shows how use blueprint to create a single node k0s cluster using a local VM and install [Nginx](https://artifacthub.io/packages/helm/bitnami/nginx) on it.
 
 Popular VMs include
 
 - [lima VM](https://github.com/lima-vm/lima)
 - [multipass VM](https://multipass.run/)
 
-Any type of VM can be used to run boundless. If you choose to use another type of VM, you will need to locate the VM's IP address, username, SSH port, and SSH credentials. This example uses a lima VM.
+Any type of VM can be used to run blueprint. If you choose to use another type of VM, you will need to locate the VM's IP address, username, SSH port, and SSH credentials. This example uses a lima VM.
 
 #### Prerequisites
 
-Along with `boundless` CLI, the following tools will also be required:
+Along with `blueprint` CLI, the following tools will also be required:
 
 - [k0sctl](https://github.com/k0sproject/k0sctl#installation) - required for installing a k0s distribution
 - [kubectl](https://kubernetes.io/docs/tasks/tools/install-kubectl/) - used to forward ports to the cluster
@@ -25,7 +25,7 @@ Start a Lima VM by running `limactl start`. Refer the [Lima documentation](https
 
 #### Setting up the blueprint
 
-Download a copy of the [example Nginx on k0s blueprint](https://raw.githubusercontent.com/mirantiscontainers/boundless/main/blueprints/k0s-example/k0s-example.yaml).
+Download a copy of the [example Nginx on k0s blueprint](https://raw.githubusercontent.com/mirantiscontainers/blueprint/main/blueprints/k0s-example/k0s-example.yaml).
 
 Modify the blueprint so that the `spec.kubernetes.infra.hosts` section matches your VM's IP address, username, SSH port, and SSH credentials. The values can be passed as environment variables or replaced with your own values. For example, if you are using a Lima VM, the section should look like this:
 

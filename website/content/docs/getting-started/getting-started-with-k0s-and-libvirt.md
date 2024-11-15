@@ -4,11 +4,11 @@ draft: false
 weight: 4
 ---
 
-This example shows how to create a single-node k0s cluster in a local VM using Terraform and libvirt. The boundless-operator may then be installed.
+This example shows how to create a single-node k0s cluster in a local VM using Terraform and libvirt. The blueprint-operator may then be installed.
 
 #### Prerequisites
 
-Along with `boundless` CLI, you will also need the following tools installed:
+Along with `blueprint` CLI, you will also need the following tools installed:
 
 * [k0sctl](https://github.com/k0sproject/k0sctl#installation) - required for installing a k0s distribution
 * [terraform](https://www.terraform.io/) - for creating VMs
@@ -19,13 +19,13 @@ You will also need an SSH key for authentication with the created VM.
 
 #### Create virtual machines
 
-Creating virtual machines can be done using the [example Terraform scripts](https://github.com/mirantiscontainers/boundless/tree/main/terraform/k0s-libvirt).
+Creating virtual machines can be done using the [example Terraform scripts](https://github.com/mirantiscontainers/blueprint/tree/main/terraform/k0s-libvirt).
 
 After copying the example TF scripts to your local machine, you can create the VMs with the following steps:
 
 1. Create a `terraform.tfvars` file with content similar to:
 ```
-cluster_name = "boundless-cluster"
+cluster_name = "blueprint-cluster"
 cores = 2
 mem_size = "2048"
 disk_size = 20
@@ -43,7 +43,7 @@ ssh_key_path = "/home/user/.ssh/id_rsa"
 > virsh machine list
 > ```
 
-#### Install Boundless Operator on `k0s`
+#### Install Blueprint Operator on `k0s`
 
 1. Verify or edit the blueprint created in the previous step, `cluster.yaml`
 

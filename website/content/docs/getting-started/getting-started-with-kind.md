@@ -4,11 +4,11 @@ draft: false
 weight: 2
 ---
 
-This example shows how to create a kind cluster using a blueprint with the Boundless Operator and an example server installed on it.
+This example shows how to create a kind cluster using a blueprint with the Blueprint Operator and an example server installed on it.
 
 #### Prerequisites
 
-Along with `boundless` CLI, you will also need the following tools:
+Along with `blueprint` CLI, you will also need the following tools:
 
 * [kind](https://kind.sigs.k8s.io/docs/user/quick-start/) - required for installing a kind distribution
 

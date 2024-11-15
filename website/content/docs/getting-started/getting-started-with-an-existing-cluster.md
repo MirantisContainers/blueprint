@@ -4,27 +4,27 @@ draft: false
 weight: 3
 ---
 
-This example shows how to start using boundless on an existing cluster.
+This example shows how to start using blueprint on an existing cluster.
 
-## Install the boundless operator
+## Install the blueprint operator
 
-Install Boundless Operator
+Install Blueprint Operator
 
 ```shell
-kubectl apply -f https://raw.githubusercontent.com/mirantiscontainers/boundless/main/deploy/static/boundless-operator.yaml
+kubectl apply -f https://github.com/mirantiscontainers/blueprint/releases/latest/download/blueprint-operator.yaml
 ```
 
-Wait for boundless operator to be ready
+Wait for blueprint operator to be ready
 
 ```shell
-kubectl get deploy -n boundless-system
+kubectl get deploy -n blueprint-system
 ```
 
 Once running, you should see something like this:
 
 ```shell
 NAME                                    READY   UP-TO-DATE   AVAILABLE   AGE
-boundless-operator-controller-manager   1/1     1            1           33s
+blueprint-operator-controller-manager   1/1     1            1           33s
 ```
 
 ## Setting up a blueprint
@@ -32,10 +32,10 @@ boundless-operator-controller-manager   1/1     1            1           33s
 Create a blueprint file `blueprint.yaml` with the following:
 
 ```yaml
-apiVersion: boundless.mirantis.com/v1alpha1
+apiVersion: blueprint.mirantis.com/v1alpha1
 kind: Blueprint
 metadata:
-  name: boundless-cluster
+  name: blueprint-cluster
 spec:
   components:
     addons:

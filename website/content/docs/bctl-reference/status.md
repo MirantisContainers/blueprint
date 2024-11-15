@@ -14,8 +14,8 @@ bctl status [flags]
 
 ## Flags
 
-| Flag | Description | Default |
-| ---- | ----------- | ------- |
-| `-h, --help` | Display the help for status |
-| `-f, --file` | The path to the blueprint file to check the status of | `./boundless.yaml` |
-| `operator-uri` | The URL or path of the boundless-operator manifest to use | `https://raw.githubusercontent.com/mirantiscontainers/boundless/main/deploy/static/boundless-operator.yaml` |
+| Flag | Description                                                | Default |
+| ---- |------------------------------------------------------------| ------- |
+| `-h, --help` | Display the help for status                                |
+| `-f, --file` | The path to the blueprint file to check the status of      | `./blueprint.yaml` |
+| `operator-uri` | The URL or path of the blueprint-operator manifest to use  | `The URL or path of the blueprint-operator manifest to use | `https://github.com/mirantiscontainers/blueprint/releases/latest/download/blueprint-operator.yaml` |

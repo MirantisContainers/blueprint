@@ -4,7 +4,7 @@ draft: false
 weight: 5
 ---
 
-`bctl version` is used to get the version of the boundless CLI.
+`bctl version` is used to get the version of the blueprint CLI.
 
 ## Usage
 

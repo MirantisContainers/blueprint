@@ -1,11 +1,11 @@
 ---
-title: Boundless Operator
+title: Blueprint Operator
 layout: hextra-home
 ---
 
 <div class="mt-6 mb-6">
 {{< hextra/hero-headline >}}
-  Boundless&nbsp;<br class="sm:block hidden" />Operator
+  Blueprint&nbsp;<br class="sm:block hidden" />Operator
 {{< /hextra/hero-headline >}}
 </div>
 

@@ -7,14 +7,14 @@ This blueprint bootstraps a kind cluster and installs Nginx. This is only a basi
 
 #### Prerequisites
 
-Along with `boundless` CLI, the following tools will also be required:
+Along with `blueprint` CLI, the following tools will also be required:
 
 - [kind](https://kind.sigs.k8s.io/docs/user/quick-start/) - required for installing a kind distribution
 - [kubectl](https://kubernetes.io/docs/tasks/tools/install-kubectl/) - used to forward ports to the cluster
 
 #### Setting up the blueprint
 
-The [example blueprint](https://raw.githubusercontent.com/mirantiscontainers/boundless/main/blueprints/kind-example/kind-example.yaml) for Nginx will bootstrap a `kind` cluster, install `Boundless Operator`, and install Nginx as an addon in the cluster.
+The [example blueprint](https://raw.githubusercontent.com/mirantiscontainers/blueprint/main/blueprints/kind-example/kind-example.yaml) for Nginx will bootstrap a `kind` cluster, install `Blueprint Operator`, and install Nginx as an addon in the cluster.
 
 The blueprint can be modified for your setup. Change the `spec.components.addons.chart.values` section to set your own values.
 
@@ -44,11 +44,11 @@ kubectl cluster-info --context kind-kind-cluster
 
 Have a nice day! 👋
 INF Waiting for nodes to be ready
-INF Installing Boundless Operator
+INF Installing Blueprint Operator
 INF Waiting for all pods to be ready
-INF Applying Boundless Operator resource
+INF Applying Blueprint Operator resource
 INF Applying Blueprint
-INF Finished installing Boundless Operator
+INF Finished installing Blueprint Operator
 ```
 
 It will take a few moments before the Nginx pods are ready. You can check the status.
