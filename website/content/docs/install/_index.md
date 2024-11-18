@@ -42,6 +42,9 @@ Next you can install the binary on your system using the following `tar` command
 tar xzf bctl_<os>_<arch>.tar.gz -C /usr/local/bin/
 ```
 
+### Upgrading the bctl binary version
+To upgrade the boundless operator binary version, first perform an [uninstall](#uninstall-boundless) then perform an [installation](#installing-using-the-script).   
+
 ### Additional tools
 
 These are tools that are not required to run Blueprint, but are useful for interacting with the cluster.
